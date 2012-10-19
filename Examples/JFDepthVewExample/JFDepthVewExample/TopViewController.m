@@ -5,6 +5,7 @@
 //  Created by Jeremy Fox on 10/17/12.
 //  Copyright (c) 2012 Jeremy Fox. All rights reserved.
 //
+//  Chuck Norris Picture Credit: http://www.reactionface.info/sites/default/files/images/1313574161997.jpg
 
 #import "TopViewController.h"
 

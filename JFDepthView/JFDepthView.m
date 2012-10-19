@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define kAnimationDuration 0.5
+#define kPresentedViewWidth 600
 
 @interface JFDepthView() {
     CGRect preTopViewWrapperFrame;
@@ -87,32 +88,42 @@
 
     self.mainView      = bottomView;
     self.presentedView = topView;
+    self.presentedView.clipsToBounds = YES;
     
     CGRect bottomViewFrame = self.mainView.bounds;
+    CGRect topViewFrame    = self.presentedView.bounds;
+    CGRect newTopViewFrame = CGRectMake(topViewFrame.origin.x,
+                                        topViewFrame.origin.y,
+                                        kPresentedViewWidth,
+                                        topViewFrame.size.height);
+    
+    self.presentedView.frame = newTopViewFrame;
     
     self.view.frame = bottomViewFrame;
     self.view.backgroundColor = [UIColor blackColor];
     
     preTopViewWrapperFrame = CGRectMake((bottomViewFrame.size.width / 2) - 300,
                                      bottomViewFrame.size.height + bottomViewFrame.origin.y,
-                                     600,
+                                     kPresentedViewWidth,
                                      bottomViewFrame.size.height - 100);
     
     postTopViewWrapperFrame = CGRectMake((bottomViewFrame.size.width / 2) - 300,
                                          100,
-                                         600,
+                                         kPresentedViewWidth,
                                          bottomViewFrame.size.height - 100);
     
     preBottomViewFrame = bottomViewFrame;
     
     postBottomViewFrame = CGRectMake(50,
-                                         0,
-                                         bottomViewFrame.size.width - 100,
-                                         bottomViewFrame.size.height - 100);
+                                    0,
+                                    bottomViewFrame.size.width - 100,
+                                    bottomViewFrame.size.height - 100);
     
     self.topViewWrapper = [[UIView alloc] initWithFrame:preTopViewWrapperFrame];
     self.topViewWrapper.autoresizesSubviews = YES;
-    self.topViewWrapper.clipsToBounds = YES;
+    self.topViewWrapper.layer.shadowOffset  = CGSizeMake(0, 0);
+    self.topViewWrapper.layer.shadowRadius  = 20;
+    self.topViewWrapper.layer.shadowOpacity = 0.7;
     self.topViewWrapper.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin  |
                                            UIViewAutoresizingFlexibleRightMargin |
                                            UIViewAutoresizingFlexibleTopMargin   |

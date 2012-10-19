@@ -17,6 +17,7 @@
 		3F1B6281162ED89300447C56 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F1B6280162ED89300447C56 /* Default-568h@2x.png */; };
 		3F1B6284162ED89300447C56 /* TopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1B6283162ED89300447C56 /* TopViewController.m */; };
 		3F1B6287162ED89300447C56 /* TopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F1B6285162ED89300447C56 /* TopViewController.xib */; };
+		3F295B4B1631C8C900B28040 /* chuck.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 3F295B4A1631C8C900B28040 /* chuck.jpeg */; };
 		3F39A60D162F3EA1004EB1BC /* libJFDepthView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F925F82162F3E25006E5CCB /* libJFDepthView.a */; };
 		3F39A616162F3F83004EB1BC /* BottomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F39A614162F3F83004EB1BC /* BottomViewController.m */; };
 		3F39A617162F3F83004EB1BC /* BottomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F39A615162F3F83004EB1BC /* BottomViewController.xib */; };
@@ -60,6 +61,7 @@
 		3F1B6282162ED89300447C56 /* TopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopViewController.h; sourceTree = "<group>"; };
 		3F1B6283162ED89300447C56 /* TopViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopViewController.m; sourceTree = "<group>"; };
 		3F1B6286162ED89300447C56 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TopViewController.xib; sourceTree = "<group>"; };
+		3F295B4A1631C8C900B28040 /* chuck.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = chuck.jpeg; sourceTree = "<group>"; };
 		3F39A613162F3F83004EB1BC /* BottomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomViewController.h; sourceTree = "<group>"; };
 		3F39A614162F3F83004EB1BC /* BottomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomViewController.m; sourceTree = "<group>"; };
 		3F39A615162F3F83004EB1BC /* BottomViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BottomViewController.xib; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 		3F1B6271162ED89300447C56 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3F295B4A1631C8C900B28040 /* chuck.jpeg */,
 				3F1B6272162ED89300447C56 /* JFDepthVewExample-Info.plist */,
 				3F1B6273162ED89300447C56 /* InfoPlist.strings */,
 				3F1B6276162ED89300447C56 /* main.m */,
@@ -231,6 +234,7 @@
 				3F1B6281162ED89300447C56 /* Default-568h@2x.png in Resources */,
 				3F1B6287162ED89300447C56 /* TopViewController.xib in Resources */,
 				3F39A617162F3F83004EB1BC /* BottomViewController.xib in Resources */,
+				3F295B4B1631C8C900B28040 /* chuck.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

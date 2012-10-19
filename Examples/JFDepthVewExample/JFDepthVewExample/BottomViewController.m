@@ -48,12 +48,6 @@
 
 - (IBAction)presentView:(id)sender {
     
-    NSLog(@"FRAME X: %f Y: %f W: %f H: %f",
-          self.topViewController.view.bounds.origin.x,
-          self.topViewController.view.bounds.origin.y,
-          self.topViewController.view.bounds.size.width,
-          self.topViewController.view.bounds.size.height);
-    
     [self.depthView presentView:self.topViewController.view inView:self.view];
 }
 

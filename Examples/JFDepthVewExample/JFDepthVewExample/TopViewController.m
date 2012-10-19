@@ -18,7 +18,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
 
 }
 
@@ -48,4 +47,7 @@
     return YES;
 }
 
+- (IBAction)closeView:(id)sender {
+    [self.depthViewReference dismissPresentedViewInView:self.presentedInView];
+}
 @end

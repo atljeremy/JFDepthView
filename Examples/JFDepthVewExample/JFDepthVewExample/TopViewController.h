@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <JFDepthView/JFDepthView.h>
 
 @interface TopViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) JFDepthView* depthViewReference;
+@property (weak, nonatomic) UIView* presentedInView;
 
+- (IBAction)closeView:(id)sender;
 @end

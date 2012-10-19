@@ -34,6 +34,9 @@
     self.depthView = [[JFDepthView alloc] initWithGestureRecognizer:tapRec];
     self.depthView.delegate = self;
     
+    self.topViewController.depthViewReference = self.depthView;
+    self.topViewController.presentedInView = self.view;
+    
 }
 
 - (void)dismiss {

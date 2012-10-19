@@ -7,7 +7,7 @@ Basic Example:
     self.topViewController = [[TopViewController alloc] initWithNibName:@"TopViewController" bundle:nil];
     UITapGestureRecognizer* tapRec = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
     self.depthView = [[JFDepthView alloc] initWithGestureRecognizer:tapRec];
-    self.depthView.delegate = self;opViewController = [[TopViewController alloc] initWithNibName:@"TopViewController" bundle:nil];
+    self.depthView.delegate = self.topViewController = [[TopViewController alloc] initWithNibName:@"TopViewController" bundle:nil];
     UITapGestureRecognizer* tapRec = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
     self.depthView = [[JFDepthView alloc] initWithGestureRecognizer:tapRec];
     self.depthView.delegate = self;

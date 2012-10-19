@@ -89,6 +89,7 @@
     self.mainView      = bottomView;
     self.presentedView = topView;
     self.presentedView.clipsToBounds = YES;
+    self.presentedView.layer.cornerRadius  = 8;
     
     CGRect bottomViewFrame = self.mainView.bounds;
     CGRect topViewFrame    = self.presentedView.bounds;
@@ -124,6 +125,7 @@
     self.topViewWrapper.layer.shadowOffset  = CGSizeMake(0, 0);
     self.topViewWrapper.layer.shadowRadius  = 20;
     self.topViewWrapper.layer.shadowOpacity = 0.7;
+    self.topViewWrapper.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.topViewWrapper.bounds].CGPath;
     self.topViewWrapper.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin  |
                                            UIViewAutoresizingFlexibleRightMargin |
                                            UIViewAutoresizingFlexibleTopMargin   |

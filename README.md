@@ -47,3 +47,4 @@ Current Known Issues As Of: Oct. 19th, 2012
 
 - Currently doesn't resize presented views on rotation so it is highly encouraged that you return NO in your overridden implementation of shouldAutoRotate (iOS 6.0+) or shouldAutorotateToInterfaceOrientation: (iOS < 6.0).
 - Not set up to work with iPhone just yet.
+- Animations are a little slow, will be replacing drops shadows with images to help improve performance.

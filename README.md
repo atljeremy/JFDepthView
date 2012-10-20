@@ -30,6 +30,11 @@ How To Use It:
     // and the view you want it to be displayed within (self.view)
     [self.depthView presentView:self.topViewController.view inView:self.view];
 }
+
+// Here is the simple dismissal method called from the tap recognizer passed into init method of JFDepthView
+- (void)dismiss {
+    [self.depthView dismissPresentedViewInView:self.view];
+}
 ```
 
 Please see the example project include in this repo for an example of how to use this project.

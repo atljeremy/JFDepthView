@@ -28,7 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3F39A60E162F3EB7004EB1BC /* PBXContainerItemProxy */ = {
+		3F598D3716324BEA007DA018 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3F925F7D162F3E24006E5CCB /* JFDepthView.xcodeproj */;
 			proxyType = 1;
@@ -174,7 +174,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				3F39A60F162F3EB7004EB1BC /* PBXTargetDependency */,
+				3F598D3816324BEA007DA018 /* PBXTargetDependency */,
 			);
 			name = JFDepthVewExample;
 			productName = JFDepthVewExample;
@@ -255,10 +255,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3F39A60F162F3EB7004EB1BC /* PBXTargetDependency */ = {
+		3F598D3816324BEA007DA018 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = JFDepthView;
-			targetProxy = 3F39A60E162F3EB7004EB1BC /* PBXContainerItemProxy */;
+			targetProxy = 3F598D3716324BEA007DA018 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

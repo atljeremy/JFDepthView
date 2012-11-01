@@ -84,7 +84,7 @@ Installation:
 
 ### Add the JFDepthView project to your project
 
-- Simple copy the JFDepthView class (.h and .m files) into your project.
+- Simply copy the JFDepthView class (.h and .m files) into your project.
 
 ### Add Dependencies
 

@@ -62,15 +62,6 @@ How To Use It:
 }
 ```
 
-#pragma mark - JFDepthView Rotation Support
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    [self.depthView didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-}
-```
-
 
 Please see the example project include in this repo for an example of how to use this project.
     

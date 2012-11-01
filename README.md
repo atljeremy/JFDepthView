@@ -43,7 +43,7 @@ How To Use It:
 ```
 
 
-### Add Rotation Support To Bottom View Controller
+### Add rotation support to your Presenting UIViewController
 ```objective-c
 
 #pragma mark - JFDepthView Rotation Support For Presenting UIViewController
@@ -56,7 +56,7 @@ How To Use It:
 ```
 
 
-### JFDepthView will notify your presented UIViewController of the didRotate... event
+### JFDepthView will notify your Presented UIViewController of the didRotate... event
 ### so you can do what ever customizations need to be done to your presented view
 ```objective-c
 

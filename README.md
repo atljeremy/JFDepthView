@@ -74,10 +74,10 @@ Please see the example project include in this repo for an example of how to use
 Delegate Methods:
 ----------------
 
-    - (void)willPresentDepthView:(JFDepthView)depthView;
-    - (void)didPresentDepthView:(JFDepthView)depthView;
-    - (void)willDismissDepthView:(JFDepthView)depthView;
-    - (void)didDismissDepthView:(JFDepthView)depthView;
+    - (void)willPresentDepthView:(JFDepthView*)depthView;
+    - (void)didPresentDepthView:(JFDepthView*)depthView;
+    - (void)willDismissDepthView:(JFDepthView*)depthView;
+    - (void)didDismissDepthView:(JFDepthView*)depthView;
     
 Installation:
 ------------

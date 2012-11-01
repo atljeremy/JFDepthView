@@ -26,9 +26,14 @@ How To Use It:
 // Here is an IBAction that is called via a UIButton
 - (IBAction)presentView:(id)sender {
     
-    // Pass in the view you want to present (self.topViewController.view) 
+    // Pass in the view controller you want to present (self.topViewController) 
     // and the view you want it to be displayed within (self.view)
-    [self.depthView presentView:self.topViewController.view inView:self.view];
+    [self.depthView presentViewController:self.topViewController inView:self.view];
+    
+    // Optionally, if you don't care about rotation support, you can just ass in 
+    // the view you want to present (self.topViewController.view) 
+    // and the view you want it to be displayed within (self.view)
+    // [self.depthView presentView:self.topViewController.view inView:self.view];
 }
 
 // Here is the simple dismissal method called from the tap recognizer passed into init method of JFDepthView
@@ -36,38 +41,62 @@ How To Use It:
     [self.depthView dismissPresentedViewInView:self.view];
 }
 ```
+### Add Rotation Support To Bottom View Controller
+```objective-c
+
+#pragma mark - JFDepthView Rotation Support
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [self.depthView didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+}
+```
+
+### JFDepthView will notify your presented UIViewController of the didRotate... event
+### so you can do what ever customizations need to be done to your presented view
+```objective-c
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    NSLog(@"Top View Controller Received didRotateFromInterfaceOrientation: event from JFDepthView");
+}
+```
+
+#pragma mark - JFDepthView Rotation Support
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [self.depthView didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+}
+```
+
 
 Please see the example project include in this repo for an example of how to use this project.
     
 Delegate Methods:
 ----------------
 
-    - (void)willPresentDepthView;
-    - (void)didPresentDepthView;
-    - (void)willDismissDepthView;
-    - (void)didDismissDepthView;
+    - (void)willPresentDepthView:(JFDepthView)depthView;
+    - (void)didPresentDepthView:(JFDepthView)depthView;
+    - (void)willDismissDepthView:(JFDepthView)depthView;
+    - (void)didDismissDepthView:(JFDepthView)depthView;
     
 Installation:
 ------------
 
 ### Add the JFDepthView project to your project
 
-- Clone this repository to your local disk
-- Right click your project in Xcode, select "Add Files to ..."
-- Navigate to where you cloned this repo on your local disk and select JFDepthView.xcodeproj.
-- Select "Copy items into destination group's folder (if needed)" & "Create folder references for any added folders"
-- In your projects build target, select "Build Phases"
-- Click the "+" under Target Dependencies and choose "JFDepthView"
-- Click the "+" under Link Binary With Libraries and choose "libJFDepthView.a"
+- Simple copy the JFDepthView class (.h and .m files) into your project.
 
 ### Add Dependencies
 
 In your application's project app target settings, find the "Build Phases" section and open the "Link Binary With Libraries" block:
 Click the "+" button and select the "CoreImage.framework" & "QuartzCore.framework".
 
-Current Known Issues As Of: Oct. 19th, 2012
+Current Known Issues As Of: Nov. 1st, 2012
 -------------------------------------------
 
-- Currently doesn't resize presented views on rotation so it is highly encouraged that you return NO in your overridden implementation of shouldAutoRotate (iOS 6.0+) or shouldAutorotateToInterfaceOrientation: (iOS < 6.0).
 - Not set up to work with iPhone just yet.
-- Animations are a little slow, will be replacing drops shadows with images to help improve performance.
+- Animations are a little slow, working on improving performance.
+- Large CoreAnimation memory usage and continues to grow. Working on ensuring this is cleaned up.

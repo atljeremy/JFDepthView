@@ -51,10 +51,19 @@
 
 - (IBAction)presentView:(id)sender {
     
-    [self.depthView presentView:self.topViewController.view inView:self.view];
+    [self.depthView presentViewController:self.topViewController inView:self.view];
+}
+
+#pragma mark - JFDepthView Rotation Support
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [self.depthView didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 #pragma mark - iOS 5 Rotation Support
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
@@ -74,19 +83,19 @@
     return YES;
 }
 
-- (void)willPresentDepthView {
+- (void)willPresentDepthView:(JFDepthView*)depthView {
     NSLog(@"willPresentDepthView called!!!");
 }
 
-- (void)didPresentDepthView {
+- (void)didPresentDepthView:(JFDepthView*)depthView {
     NSLog(@"didPresentDepthView called!!!");
 }
 
-- (void)willDismissDepthView {
+- (void)willDismissDepthView:(JFDepthView*)depthView {
     NSLog(@"willDismissDepthView called!!!");
 }
 
-- (void)didDismissDepthView {
+- (void)didDismissDepthView:(JFDepthView*)depthView {
     NSLog(@"didDismissDepthView called!!!");
 }
 

@@ -33,6 +33,11 @@
     return YES;
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    NSLog(@"Top View Controller Received didRotateFromInterfaceOrientation: event from JFDepthView");
+}
+
 #pragma mark - iOS 6 Rotation Support
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {

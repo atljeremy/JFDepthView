@@ -30,7 +30,7 @@ How To Use It:
     // and the view you want it to be displayed within (self.view)
     [self.depthView presentViewController:self.topViewController inView:self.view];
     
-    // Optionally, if you don't care about rotation support, you can just ass in 
+    // Optionally, if you don't care about rotation support, you can just pass in 
     // the view you want to present (self.topViewController.view) 
     // and the view you want it to be displayed within (self.view)
     // [self.depthView presentView:self.topViewController.view inView:self.view];

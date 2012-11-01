@@ -41,10 +41,12 @@ How To Use It:
     [self.depthView dismissPresentedViewInView:self.view];
 }
 ```
+
+
 ### Add Rotation Support To Bottom View Controller
 ```objective-c
 
-#pragma mark - JFDepthView Rotation Support
+#pragma mark - JFDepthView Rotation Support For Presenting UIViewController
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
@@ -53,9 +55,13 @@ How To Use It:
 }
 ```
 
+
 ### JFDepthView will notify your presented UIViewController of the didRotate... event
 ### so you can do what ever customizations need to be done to your presented view
 ```objective-c
+
+#pragma mark - JFDepthView Rotation Support for Presented UIViewController
+
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     NSLog(@"Top View Controller Received didRotateFromInterfaceOrientation: event from JFDepthView");

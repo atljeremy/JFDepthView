@@ -11,6 +11,7 @@
 		3F1B6257162ED72800447C56 /* JFDepthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1B6256162ED72800447C56 /* JFDepthView.m */; };
 		3F39A6A916308697004EB1BC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F39A6A816308697004EB1BC /* QuartzCore.framework */; };
 		3F39A6AD16309CBC004EB1BC /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F39A6AC16309CBC004EB1BC /* CoreImage.framework */; };
+		3F77F405164449A4006B4F89 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F77F404164449A4006B4F89 /* Accelerate.framework */; };
 		3F925F5D162F282D006E5CCB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F1B6213162ED40D00447C56 /* UIKit.framework */; };
 		3F925F5E162F2835006E5CCB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F1B6217162ED40D00447C56 /* CoreGraphics.framework */; };
 		3F925F66162F3225006E5CCB /* JFDepthView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F1B6254162ED72800447C56 /* JFDepthView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -25,6 +26,7 @@
 		3F1B6256162ED72800447C56 /* JFDepthView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JFDepthView.m; sourceTree = "<group>"; };
 		3F39A6A816308697004EB1BC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3F39A6AC16309CBC004EB1BC /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		3F77F404164449A4006B4F89 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F77F405164449A4006B4F89 /* Accelerate.framework in Frameworks */,
 				3F39A6AD16309CBC004EB1BC /* CoreImage.framework in Frameworks */,
 				3F39A6A916308697004EB1BC /* QuartzCore.framework in Frameworks */,
 				3F925F5E162F2835006E5CCB /* CoreGraphics.framework in Frameworks */,
@@ -63,6 +66,7 @@
 		3F1B6212162ED40D00447C56 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3F77F404164449A4006B4F89 /* Accelerate.framework */,
 				3F39A6AC16309CBC004EB1BC /* CoreImage.framework */,
 				3F39A6A816308697004EB1BC /* QuartzCore.framework */,
 				3F1B6213162ED40D00447C56 /* UIKit.framework */,

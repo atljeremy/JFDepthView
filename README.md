@@ -6,9 +6,9 @@ This is an iOS project for presenting views in iPad with a 3D effect to add dept
 What It Looks Like:
 ------------------
 
-![Before Presentation](http://imageshack.us/photo/my-images/853/screenshot20121102at813.png/)
-![Mid Presentation](http://imageshack.us/photo/my-images/525/screenshot20121102at814.png/)
-![Final Presentation](http://imageshack.us/photo/my-images/209/screenshot20121102at813.png/)
+![Before Presentation](http://imageshack.us/a/img853/6004/screenshot20121102at813.png)
+![Mid Presentation](http://imageshack.us/a/img525/5831/screenshot20121102at814.png)
+![Final Presentation](http://imageshack.us/a/img209/6004/screenshot20121102at813.png)
 
 How To Use It:
 -------------

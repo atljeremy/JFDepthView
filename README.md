@@ -107,5 +107,3 @@ Current Known Issues As Of: Nov. 1st, 2012
 -------------------------------------------
 
 - Not set up to work with iPhone just yet.
-- Animations are a little slow, working on improving performance.
-- Large CoreAnimation memory usage and continues to grow. Working on ensuring this is cleaned up.

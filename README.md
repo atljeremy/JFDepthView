@@ -3,6 +3,13 @@ JFDepthView
 
 This is an iOS project for presenting views in iPad with a 3D effect to add depth. JFDepthView is only available in ARC and targets iOS 5.0+.
 
+What It Looks Like:
+------------------
+
+![Before Presentation](http://imageshack.us/photo/my-images/853/screenshot20121102at813.png/)
+![Mid Presentation](http://imageshack.us/photo/my-images/525/screenshot20121102at814.png/)
+![Final Presentation](http://imageshack.us/photo/my-images/209/screenshot20121102at813.png/)
+
 How To Use It:
 -------------
 

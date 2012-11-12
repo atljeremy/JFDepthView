@@ -2,7 +2,7 @@
  * JFDepthView
  *
  * Created by Jeremy Fox on 10/19/12.
- * Copyright (c) 2012 Ryan Nystrom. All rights reserved.
+ * Copyright (c) 2012 Jeremy Fox. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -329,6 +329,13 @@
                              [self.topViewWrapper         removeFromSuperview];
                              [self.view                   removeFromSuperview];
                              
+                             [self.view.layer                   removeAllAnimations];
+                             [self.presentedView.layer          removeAllAnimations];
+                             [self.presentedViewContainer.layer removeAllAnimations];
+                             [self.topViewWrapper.layer         removeAllAnimations];
+                             [self.blurredMainView.layer        removeAllAnimations];
+                             [self.dimView.layer                removeAllAnimations];
+                             
                              self.presentedViewContainer = nil;
                              self.mainView        = nil;
                              self.dimView         = nil;
@@ -336,13 +343,6 @@
                              self.topViewWrapper  = nil;
                              self.viewImage       = nil;
                              self.presentedView   = nil;
-                             
-                             [self.view.layer                   removeAllAnimations];
-                             [self.presentedView.layer          removeAllAnimations];
-                             [self.presentedViewContainer.layer removeAllAnimations];
-                             [self.topViewWrapper.layer         removeAllAnimations];
-                             [self.blurredMainView.layer        removeAllAnimations];
-                             [self.dimView.layer                removeAllAnimations];
                              
                              if (self.delegate && [self.delegate respondsToSelector:@selector(didDismissDepthView:)]) {
                                  [self.delegate didDismissDepthView:self];

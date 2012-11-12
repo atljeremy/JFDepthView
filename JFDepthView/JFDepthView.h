@@ -2,7 +2,7 @@
  * JFDepthView
  *
  * Created by Jeremy Fox on 10/19/12.
- * Copyright (c) 2012 Ryan Nystrom. All rights reserved.
+ * Copyright (c) 2012 Jeremy Fox. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal

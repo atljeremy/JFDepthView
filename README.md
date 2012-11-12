@@ -103,7 +103,7 @@ Installation:
 ### Add Dependencies
 
 - In your application's project app target settings, find the "Build Phases" section and open the "Link Binary With Libraries" block
-- Click the "+" button and select the "CoreImage.framework" & "QuartzCore.framework".
+- Click the "+" button and select the "CoreImage.framework", "QuartzCore.framework" & "Accelerate.framework".
 
 Current Known Issues As Of: Nov. 1st, 2012
 -------------------------------------------

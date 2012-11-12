@@ -3,7 +3,7 @@ JFDepthView
 
 This is an iOS project for presenting views in iPad with a 3D effect to add depth. JFDepthView is only available in ARC and targets iOS 5.0+.
 
-JFDepthView uses a blurring algorithm that can be found [blurring algorithm](http://indieambitions.com/idevblogaday/perform-blur-vimage-accelerate-framework-tutorial/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+IndieAmbitions+%28Indie+Ambitions%29 "here") to blur the background view.
+JFDepthView uses a blurring algorithm that can be found [here](http://indieambitions.com/idevblogaday/perform-blur-vimage-accelerate-framework-tutorial/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+IndieAmbitions+%28Indie+Ambitions%29 "here") to blur the background view.
 
 What It Looks Like:
 ------------------

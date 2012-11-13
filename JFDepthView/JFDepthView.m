@@ -127,6 +127,9 @@
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     
     if (!self.presentedViewController) return;
+    if (UIInterfaceOrientationIsLandscape(fromInterfaceOrientation) && UIInterfaceOrientationIsLandscape([self interfaceOrientation])) {
+        return;
+    }
     
     // Notify presented view of rotation event so it can handle updating things as needed.
     [self.presentedViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];

@@ -127,7 +127,14 @@
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     
     if (!self.presentedViewController) return;
-    if (UIInterfaceOrientationIsLandscape(fromInterfaceOrientation) && UIInterfaceOrientationIsLandscape([self interfaceOrientation])) {
+    
+    if (UIInterfaceOrientationIsLandscape(fromInterfaceOrientation)
+        && UIInterfaceOrientationIsLandscape([self interfaceOrientation])) {
+        return;
+    }
+    
+    if (UIInterfaceOrientationIsPortrait(fromInterfaceOrientation)
+        && UIInterfaceOrientationIsPortrait([self interfaceOrientation])) {
         return;
     }
     

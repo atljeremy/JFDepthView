@@ -55,6 +55,23 @@
 @property (nonatomic, weak) UIView* presentedView;
 
 /**
+ * JFDepthView - presentedViewController
+ *
+ * This is the view controller that is being presented.
+ * This property will be set automatically when you call
+ * the presentViewController:inView: method.
+ */
+@property (nonatomic, weak) UIViewController* presentedViewController;
+
+/**
+ * JFDepthView - isPresenting
+ *
+ * A BOOL that can be used to determine if an instance of JFDepthView is
+ * preseting a view.
+ */
+@property (nonatomic, assign) BOOL isPresenting;
+
+/**
  * JFDepthView - delegate
  *
  * Set this in your view controller that creates the JFDepthView
@@ -90,16 +107,6 @@
 - (void)presentView:(UIView*)topView inView:(UIView*)bottomView;
 
 /**
- * JFDepthView - dismissPresentedViewInView
- *
- * Use this method to dismiss the presented view.
- *
- * @param UIView view
- * This must be a reference to the view that contains the presented view.
- */
-- (void)dismissPresentedViewInView:(UIView*)view;
-
-/**
  * JFDepthView - presentViewController:inView:
  *
  * Use this method to present a view controller with a cool 3D "depth" effect.
@@ -112,6 +119,16 @@
  * This is the view in which everything will be presented in.
  */
 - (void)presentViewController:(UIViewController*)topViewController inView:(UIView*)bottomView;
+
+/**
+ * JFDepthView - dismissPresentedViewInView
+ *
+ * Use this method to dismiss the presented view.
+ *
+ * @param UIView view
+ * This must be a reference to the view that contains the presented view or view controller.
+ */
+- (void)dismissPresentedViewInView:(UIView*)view;
 @end
 
 

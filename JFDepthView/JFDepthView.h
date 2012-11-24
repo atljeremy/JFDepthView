@@ -82,7 +82,7 @@ typedef enum {
  * JFDepthView - presentedViewWidth
  *
  * A custom float value representing the desired width of the presented view.
- * Default valude is 600.
+ * Default value is 600.
  */
 @property (nonatomic, assign) CGFloat presentedViewWidth;
 

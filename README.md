@@ -59,7 +59,25 @@ How To Use It:
     [self.depthView dismissPresentedViewInView:self.view];
 }
 ```
+### Customizable Properties
+```objective-c
+/**
+ * JFDepthView - presentedViewWidth
+ *
+ * A custom float value representing the desired width of the presented view.
+ * Default value is 600.
+ */
+@property (nonatomic, assign) CGFloat presentedViewWidth;
 
+/**
+ * JFDepthView - blurAmount
+ *
+ * A JFDepthViewBlurAmount enum value representing to desired blur amount for the 
+ * background view behind the presented view.
+ * Default value is JFDepthViewBlurAmountMedium.
+ */
+@property (nonatomic, assign) JFDepthViewBlurAmount blurAmount;
+```
 
 ### Add rotation support to your Presenting UIViewController
 ```objective-c

@@ -33,8 +33,10 @@
     UITapGestureRecognizer* tapRec = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
     self.depthView = [[JFDepthView alloc] initWithGestureRecognizer:tapRec];
     self.depthView.delegate = self;
-//    self.depthView.presentedViewWidth = 700;
-    self.depthView.blurAmount = JFDepthViewBlurAmountHard;
+    
+    // Optional properties, use these to customize your presentations
+    // self.depthView.presentedViewWidth = 700;
+    // self.depthView.blurAmount = JFDepthViewBlurAmountHard;
     
     self.topViewController.depthViewReference = self.depthView;
     self.topViewController.presentedInView = self.view;

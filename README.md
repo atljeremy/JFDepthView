@@ -35,6 +35,10 @@ How To Use It:
     UITapGestureRecognizer* tapRec = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
     self.depthView = [[JFDepthView alloc] initWithGestureRecognizer:tapRec];
     self.depthView.delegate = self;
+    
+    // Optional properties, use these to customize your presentations
+    self.depthView.presentedViewWidth = 700;
+    self.depthView.blurAmount = JFDepthViewBlurAmountHard;
 }
 
 // Here is an IBAction that is called via a UIButton

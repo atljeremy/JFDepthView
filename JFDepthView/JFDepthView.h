@@ -26,6 +26,13 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
+typedef enum {
+    JFDepthViewBlurAmountLight,
+    JFDepthViewBlurAmountMedium,
+    JFDepthViewBlurAmountHard
+    
+} JFDepthViewBlurAmount;
+
 @protocol JFDepthViewDelegate;
 
 /**
@@ -70,6 +77,23 @@
  * preseting a view.
  */
 @property (nonatomic, assign) BOOL isPresenting;
+
+/**
+ * JFDepthView - presentedViewWidth
+ *
+ * A custom float value representing the desired width of the presented view.
+ * Default valude is 600.
+ */
+@property (nonatomic, assign) CGFloat presentedViewWidth;
+
+/**
+ * JFDepthView - blurAmount
+ *
+ * A JFDepthViewBlurAmount enum value representing to desired blur amount for the 
+ * background view behind the presented view.
+ * Default value is JFDepthViewBlurAmountMedium.
+ */
+@property (nonatomic, assign) JFDepthViewBlurAmount blurAmount;
 
 /**
  * JFDepthView - delegate

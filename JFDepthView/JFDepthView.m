@@ -29,7 +29,9 @@
 
 #define kAnimationDuration  0.5
 #define kPresentedViewWidth 600
-#define kDefaultBlurAmount  0.2f
+#define kLightBlurAmount  0.1f
+#define kMediumBlurAmount 0.2f
+#define kHardBlurAmount   0.3f
 
 @interface UIImage (Blur)
 -(UIImage *)boxblurImageWithBlur:(CGFloat)blur;
@@ -61,6 +63,8 @@
 @synthesize blurredMainView         = _blurredMainView;
 @synthesize recognizer              = _recognizer;
 @synthesize viewImage               = _viewImage;
+@synthesize presentedViewWidth      = _presentedViewWidth;
+@synthesize blurAmount              = _blurAmount;
 
 - (JFDepthView*)init {
     
@@ -76,6 +80,7 @@
         
         self.recognizer = gesRec;
         self.isPresenting = NO;
+        self.blurAmount = JFDepthViewBlurAmountMedium;
     }
     return self;
 }
@@ -172,7 +177,7 @@
         
         postTopViewWrapperFrame = CGRectMake((portraitBounds.size.width / 2) - (self.topViewWrapper.frame.size.width / 2),
                                              100,
-                                             kPresentedViewWidth,
+                                             self.getPresentedViewWidth,
                                              portraitBounds.size.height - 100);
         
         [UIView animateWithDuration:0.2 animations:^{
@@ -200,7 +205,7 @@
         
         postTopViewWrapperFrame = CGRectMake((landscapeBounds.size.width / 2) - (self.topViewWrapper.frame.size.width / 2),
                                              100,
-                                             kPresentedViewWidth,
+                                             self.getPresentedViewWidth,
                                              landscapeBounds.size.height - 100);
         
         [UIView animateWithDuration:0.2 animations:^{
@@ -243,7 +248,7 @@
     CGRect topViewFrame    = self.presentedView.bounds;
     CGRect newTopViewFrame = CGRectMake(topViewFrame.origin.x,
                                         topViewFrame.origin.y,
-                                        kPresentedViewWidth,
+                                        self.getPresentedViewWidth,
                                         topViewFrame.size.height);
     
     self.presentedView.frame = newTopViewFrame;
@@ -251,14 +256,14 @@
     self.view.frame = bottomViewFrame;
     self.view.backgroundColor = [UIColor blackColor];
     
-    preTopViewWrapperFrame = CGRectMake((bottomViewFrame.size.width / 2) - 300,
+    preTopViewWrapperFrame = CGRectMake((bottomViewFrame.size.width / 2) - (self.getPresentedViewWidth / 2),
                                         bottomViewFrame.size.height + bottomViewFrame.origin.y,
-                                        kPresentedViewWidth,
+                                        self.getPresentedViewWidth,
                                         bottomViewFrame.size.height - 100);
     
-    postTopViewWrapperFrame = CGRectMake((bottomViewFrame.size.width / 2) - 300,
+    postTopViewWrapperFrame = CGRectMake((bottomViewFrame.size.width / 2) - (self.getPresentedViewWidth / 2),
                                          100,
-                                         kPresentedViewWidth,
+                                         self.getPresentedViewWidth,
                                          bottomViewFrame.size.height - 100);
     
     preBottomViewFrame = bottomViewFrame;
@@ -371,10 +376,39 @@
     }
 }
 
+- (CGFloat)getPresentedViewWidth {
+    CGFloat width = kPresentedViewWidth;
+    if (self.presentedViewWidth > 0.0) {
+        width = self.presentedViewWidth;
+    }
+    
+    return width;
+}
+
+- (float)getBlurAmount {
+    float amount;
+    switch (self.blurAmount) {
+        case JFDepthViewBlurAmountLight:
+            amount = kLightBlurAmount;
+            break;
+            
+        case JFDepthViewBlurAmountHard:
+            amount = kHardBlurAmount;
+            break;
+            
+        case JFDepthViewBlurAmountMedium:
+        default:
+            amount = kMediumBlurAmount;
+            break;
+    }
+    
+    return amount;
+}
+
 - (UIImage*)getBlurredImage {
     NSData *imageData = UIImageJPEGRepresentation(self.viewImage, 1); // convert to jpeg
     UIImage* image = [UIImage imageWithData:imageData];
-    return [image boxblurImageWithBlur:kDefaultBlurAmount];;
+    return [image boxblurImageWithBlur:self.getBlurAmount];
 }
 
 - (void)hideSubviews {

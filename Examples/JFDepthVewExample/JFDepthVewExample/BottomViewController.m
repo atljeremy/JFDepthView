@@ -36,6 +36,7 @@
     
     // Optional properties, use these to customize your presentations
     // self.depthView.presentedViewWidth = 700;
+    // self.depthView.presentedViewOriginY = 200;
     // self.depthView.blurAmount = JFDepthViewBlurAmountHard;
     
     self.topViewController.depthViewReference = self.depthView;
@@ -44,7 +45,7 @@
 }
 
 - (void)dismiss {
-    [self.depthView dismissPresentedViewInView:self.view];
+    [self.depthView dismissPresentedViewInView:self.view animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,7 +56,7 @@
 
 - (IBAction)presentView:(id)sender {
     
-    [self.depthView presentViewController:self.topViewController inView:self.view];
+    [self.depthView presentViewController:self.topViewController inView:self.view animated:YES];
 }
 
 #pragma mark - JFDepthView Rotation Support
@@ -64,6 +65,12 @@
 {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
     [self.depthView didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    [self.depthView willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
 #pragma mark - iOS 5 Rotation Support

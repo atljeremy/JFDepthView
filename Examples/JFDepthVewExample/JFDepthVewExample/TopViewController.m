@@ -38,6 +38,11 @@
     NSLog(@"Top View Controller Received didRotateFromInterfaceOrientation: event from JFDepthView");
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    NSLog(@"Top View Controller Received willRotateToInterfaceOrientation:duration: event from JFDepthView");
+}
+
 #pragma mark - iOS 6 Rotation Support
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
@@ -53,6 +58,6 @@
 }
 
 - (IBAction)closeView:(id)sender {
-    [self.depthViewReference dismissPresentedViewInView:self.presentedInView];
+    [self.depthViewReference dismissPresentedViewInView:self.presentedInView animated:YES];
 }
 @end

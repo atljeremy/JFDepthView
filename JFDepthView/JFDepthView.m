@@ -29,6 +29,7 @@
 
 #define kAnimationDuration  0.5
 #define kPresentedViewWidth 600
+#define kPresentedViewOriginY 30
 #define kLightBlurAmount  0.1f
 #define kMediumBlurAmount 0.2f
 #define kHardBlurAmount   0.3f
@@ -65,6 +66,7 @@
 @synthesize viewImage               = _viewImage;
 @synthesize presentedViewWidth      = _presentedViewWidth;
 @synthesize blurAmount              = _blurAmount;
+@synthesize presentedViewOriginY    = _presentedViewOriginY;
 
 - (JFDepthView*)init {
     
@@ -162,6 +164,8 @@
     [self.presentedViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
     
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    float presentedViewWidth = [self getPresentedViewWidth];
+    float presentedViewOriginY = [self getPresentedViewOriginY];
     
     if (UIInterfaceOrientationIsLandscape(fromInterfaceOrientation)) {
         // Rotated to a portrait orientation
@@ -176,17 +180,17 @@
         preBottomViewFrame = portraitBounds;
         
         postTopViewWrapperFrame = CGRectMake((portraitBounds.size.width / 2) - (self.topViewWrapper.frame.size.width / 2),
-                                             100,
-                                             self.getPresentedViewWidth,
-                                             portraitBounds.size.height - 100);
+                                             presentedViewOriginY,
+                                             presentedViewWidth,
+                                             portraitBounds.size.height - presentedViewOriginY);
         
         [UIView animateWithDuration:0.2 animations:^{
             self.topViewWrapper.frame = postTopViewWrapperFrame;
         }
-         completion:^(BOOL finished){
-             NSLog(@"JFDepthView: Did Rotate Animation Complete");
-             
-         }];
+                         completion:^(BOOL finished){
+                             NSLog(@"JFDepthView: Did Rotate Animation Complete");
+                             
+                         }];
         
     } else {
         // Rotated to a landscape orientation
@@ -204,22 +208,22 @@
         preBottomViewFrame = landscapeBounds;
         
         postTopViewWrapperFrame = CGRectMake((landscapeBounds.size.width / 2) - (self.topViewWrapper.frame.size.width / 2),
-                                             100,
-                                             self.getPresentedViewWidth,
-                                             landscapeBounds.size.height - 100);
+                                             presentedViewOriginY,
+                                             presentedViewWidth,
+                                             landscapeBounds.size.height - presentedViewOriginY);
         
         [UIView animateWithDuration:0.2 animations:^{
             self.topViewWrapper.frame = postTopViewWrapperFrame;
         }
-         completion:^(BOOL finished){
-             NSLog(@"JFDepthView: Did Rotate Animation Complete");
-             
-         }];
+                         completion:^(BOOL finished){
+                             NSLog(@"JFDepthView: Did Rotate Animation Complete");
+                             
+                         }];
     }
     
 }
 
-- (void)presentViewController:(UIViewController*)topViewController inView:(UIView*)bottomView {
+- (void)presentViewController:(UIViewController*)topViewController inView:(UIView*)bottomView animated:(BOOL)animated {
     
     NSParameterAssert(topViewController);
     NSParameterAssert(bottomView);
@@ -228,10 +232,10 @@
         self.presentedViewController = nil;
     }
     self.presentedViewController = topViewController;
-    [self presentView:self.presentedViewController.view inView:bottomView];
+    [self presentView:self.presentedViewController.view inView:bottomView animated:animated];
 }
 
-- (void)presentView:(UIView*)topView inView:(UIView*)bottomView {
+- (void)presentView:(UIView*)topView inView:(UIView*)bottomView animated:(BOOL)animated {
     
     NSParameterAssert(topView);
     NSParameterAssert(bottomView);
@@ -244,11 +248,14 @@
     self.presentedView.autoresizingMask    = UIViewAutoresizingFlexibleWidth |
     UIViewAutoresizingFlexibleHeight;
     
+    float presentedViewWidth = [self getPresentedViewWidth];
+    float presentedViewOriginY = [self getPresentedViewOriginY];
+    
     bottomViewFrame        = self.mainView.bounds;
     CGRect topViewFrame    = self.presentedView.bounds;
     CGRect newTopViewFrame = CGRectMake(topViewFrame.origin.x,
                                         topViewFrame.origin.y,
-                                        self.getPresentedViewWidth,
+                                        presentedViewWidth,
                                         topViewFrame.size.height);
     
     self.presentedView.frame = newTopViewFrame;
@@ -256,15 +263,15 @@
     self.view.frame = bottomViewFrame;
     self.view.backgroundColor = [UIColor blackColor];
     
-    preTopViewWrapperFrame = CGRectMake((bottomViewFrame.size.width / 2) - (self.getPresentedViewWidth / 2),
+    preTopViewWrapperFrame = CGRectMake((bottomViewFrame.size.width / 2) - (presentedViewWidth / 2),
                                         bottomViewFrame.size.height + bottomViewFrame.origin.y,
-                                        self.getPresentedViewWidth,
-                                        bottomViewFrame.size.height - 100);
+                                        presentedViewWidth,
+                                        bottomViewFrame.size.height - presentedViewOriginY);
     
-    postTopViewWrapperFrame = CGRectMake((bottomViewFrame.size.width / 2) - (self.getPresentedViewWidth / 2),
-                                         100,
-                                         self.getPresentedViewWidth,
-                                         bottomViewFrame.size.height - 100);
+    postTopViewWrapperFrame = CGRectMake((bottomViewFrame.size.width / 2) - (presentedViewWidth / 2),
+                                         presentedViewOriginY,
+                                         presentedViewWidth,
+                                         bottomViewFrame.size.height - presentedViewOriginY);
     
     preBottomViewFrame = bottomViewFrame;
     
@@ -280,19 +287,19 @@
     self.topViewWrapper.layer.shadowOpacity = 1.0;
     self.topViewWrapper.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.topViewWrapper.bounds].CGPath;
     self.topViewWrapper.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin  |
-                                           UIViewAutoresizingFlexibleRightMargin |
-                                           UIViewAutoresizingFlexibleTopMargin   |
-                                           UIViewAutoresizingFlexibleBottomMargin|
-                                           UIViewAutoresizingFlexibleHeight;
+    UIViewAutoresizingFlexibleRightMargin |
+    UIViewAutoresizingFlexibleTopMargin   |
+    UIViewAutoresizingFlexibleBottomMargin|
+    UIViewAutoresizingFlexibleHeight;
     
     self.presentedViewContainer = [[UIView alloc] initWithFrame:bottomViewFrame];
     self.presentedViewContainer.autoresizesSubviews = YES;
     self.presentedViewContainer.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin  |
-                                                   UIViewAutoresizingFlexibleRightMargin |
-                                                   UIViewAutoresizingFlexibleTopMargin   |
-                                                   UIViewAutoresizingFlexibleBottomMargin|
-                                                   UIViewAutoresizingFlexibleHeight      |
-                                                   UIViewAutoresizingFlexibleWidth;
+    UIViewAutoresizingFlexibleRightMargin |
+    UIViewAutoresizingFlexibleTopMargin   |
+    UIViewAutoresizingFlexibleBottomMargin|
+    UIViewAutoresizingFlexibleHeight      |
+    UIViewAutoresizingFlexibleWidth;
     
     UIGraphicsBeginImageContext(self.mainView.bounds.size);
     [self.mainView.layer renderInContext:UIGraphicsGetCurrentContext()];
@@ -326,63 +333,77 @@
         [self.delegate willPresentDepthView:self];
     }
     
-    [UIView animateWithDuration:0.5 animations:^{
+    float duration = (animated) ? 0.5 : 0.0;
+    
+    [UIView animateWithDuration:duration animations:^{
         
         self.topViewWrapper.frame  = postTopViewWrapperFrame;
         self.blurredMainView.frame = postBottomViewFrame;
         self.dimView.alpha         = 0.4;
     }
-     completion:^(BOOL finished){
-         NSLog(@"JFDepthView: Present Animation Complete");
-         
-         self.isPresenting = YES;
-         [self removeAllAnimations];
-         
-         if (self.delegate && [self.delegate respondsToSelector:@selector(didPresentDepthView:)]) {
-             [self.delegate didPresentDepthView:self];
-         }
-     }];
+                     completion:^(BOOL finished){
+                         NSLog(@"JFDepthView: Present Animation Complete");
+                         
+                         self.isPresenting = YES;
+                         [self removeAllAnimations];
+                         
+                         if (self.delegate && [self.delegate respondsToSelector:@selector(didPresentDepthView:)]) {
+                             [self.delegate didPresentDepthView:self];
+                         }
+                     }];
 }
 
-- (void)dismissPresentedViewInView:(UIView*)view {
+- (void)dismissPresentedViewInView:(UIView*)view animated:(BOOL)animated {
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(willDismissDepthView:)]) {
         [self.delegate willDismissDepthView:self];
     }
     
     if ([self.mainView isEqual:view]) {
-        [UIView animateWithDuration:0.5 animations:^{
+        
+        float duration = (animated) ? 0.5 : 0.0;
+        
+        [UIView animateWithDuration:duration animations:^{
             
             self.topViewWrapper.frame  = preTopViewWrapperFrame;
             self.blurredMainView.frame = preBottomViewFrame;
             self.dimView.alpha         = 0.0;
         }
-         completion:^(BOOL finished){
-             NSLog(@"JFDepthView: Dismiss Animation Complete");
-             
-             [self showSubviews];
-             
-             [self removeAllViewsFromSuperView];
-             [self removeAllAnimations];
-             [self deallocate];
-             
-             if (self.delegate && [self.delegate respondsToSelector:@selector(didDismissDepthView:)]) {
-                 [self.delegate didDismissDepthView:self];
-             }
-             
-             self.isPresenting = NO;
-             
-         }];
+                         completion:^(BOOL finished){
+                             NSLog(@"JFDepthView: Dismiss Animation Complete");
+                             
+                             [self showSubviews];
+                             
+                             [self removeAllViewsFromSuperView];
+                             [self removeAllAnimations];
+                             [self deallocate];
+                             
+                             if (self.delegate && [self.delegate respondsToSelector:@selector(didDismissDepthView:)]) {
+                                 [self.delegate didDismissDepthView:self];
+                             }
+                             
+                             self.isPresenting = NO;
+                             
+                         }];
     }
 }
 
 - (CGFloat)getPresentedViewWidth {
     CGFloat width = kPresentedViewWidth;
-    if (self.presentedViewWidth > 0.0) {
+    if (!isnan(self.presentedViewWidth) && self.presentedViewWidth > 0.0) {
         width = self.presentedViewWidth;
     }
     
     return width;
+}
+
+- (CGFloat)getPresentedViewOriginY {
+    CGFloat y = kPresentedViewOriginY;
+    if (!isnan(self.presentedViewOriginY) && self.presentedViewOriginY > 0.0) {
+        y = self.presentedViewOriginY;
+    }
+    
+    return y;
 }
 
 - (float)getBlurAmount {

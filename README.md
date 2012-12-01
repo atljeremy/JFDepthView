@@ -37,8 +37,9 @@ How To Use It:
     self.depthView.delegate = self;
     
     // Optional properties, use these to customize your presentations
-    self.depthView.presentedViewWidth = 700;
-    self.depthView.blurAmount = JFDepthViewBlurAmountHard;
+    // self.depthView.presentedViewWidth = 700;
+    // self.depthView.presentedViewOriginY = 200;
+    // self.depthView.blurAmount = JFDepthViewBlurAmountHard;
 }
 
 // Here is an IBAction that is called via a UIButton
@@ -62,21 +63,26 @@ How To Use It:
 ### Customizable Properties
 ```objective-c
 /**
+ * JFDepthView - isPresenting
+ *
+ * @return A BOOL that can be used to determine if an instance of JFDepthView is preseting a view.
+ */
+@property (nonatomic, assign) BOOL isPresenting;
+
+/**
  * JFDepthView - presentedViewWidth
  *
- * A custom float value representing the desired width of the presented view.
- * Default value is 600.
+ * @return A custom float value representing the desired width of the presented view. Default value is 600.
  */
 @property (nonatomic, assign) CGFloat presentedViewWidth;
 
 /**
- * JFDepthView - blurAmount
+ * JFDepthView - presentedViewOriginY
  *
- * A JFDepthViewBlurAmount enum value representing to desired blur amount for the 
- * background view behind the presented view.
- * Default value is JFDepthViewBlurAmountMedium.
+ * @return A custom float value representing the desired y origin of the presented view.
+ * This is the space from the top of the presented view to the top of the view that it is contained in.
  */
-@property (nonatomic, assign) JFDepthViewBlurAmount blurAmount;
+@property (nonatomic, assign) CGFloat presentedViewOriginY;
 ```
 
 ### Add rotation support to your Presenting UIViewController
@@ -89,10 +95,16 @@ How To Use It:
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
     [self.depthView didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    [self.depthView willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
 ```
 
 
-### JFDepthView will notify your Presented UIViewController of the didRotate... event
+### JFDepthView will notify your Presented UIViewController of the didRotate... and willRotate... events
 ### so you can do what ever customizations need to be done to your presented view
 ```objective-c
 
@@ -101,6 +113,11 @@ How To Use It:
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     NSLog(@"Top View Controller Received didRotateFromInterfaceOrientation: event from JFDepthView");
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    NSLog(@"Top View Controller Received willRotateToInterfaceOrientation:duration: event from JFDepthView");
 }
 ```
 

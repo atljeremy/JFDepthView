@@ -38,69 +38,64 @@ typedef enum {
 /**
  * JFDepthView
  *
- * This is a class extending from UIViewControll that can be
- * used to add a cool 3D "Depth" effect to presented views.
+ * This is a class that can be used to add a cool 3D "Depth" effect to presented views.
  */
 @interface JFDepthView : UIViewController <UIGestureRecognizerDelegate>
 
 /**
  * JFDepthView - mainView
  *
- * This is the view in which everything will appear within.
- * This property will be set automatically when you call
- * the presentView:inView: method.
+ * @return This is the view in which everything will appear within. This property will be set automatically when you call the presentView:inView: method.
  */
 @property (nonatomic, weak) UIView* mainView;
 
 /**
  * JFDepthView - presentedView
  *
- * This is the view that is being presented.
- * This property will be set automatically when you call
- * the presentView:inView: method.
+ * @return This is the view that is being presented. This property will be set automatically when you call the presentView:inView: method.
  */
 @property (nonatomic, weak) UIView* presentedView;
 
 /**
  * JFDepthView - presentedViewController
  *
- * This is the view controller that is being presented.
- * This property will be set automatically when you call
- * the presentViewController:inView: method.
+ * @return This is the view controller that is being presented. This property will be set automatically when you call the presentViewController:inView: method.
  */
 @property (nonatomic, weak) UIViewController* presentedViewController;
 
 /**
  * JFDepthView - isPresenting
  *
- * A BOOL that can be used to determine if an instance of JFDepthView is
- * preseting a view.
+ * @return A BOOL that can be used to determine if an instance of JFDepthView is preseting a view.
  */
 @property (nonatomic, assign) BOOL isPresenting;
 
 /**
  * JFDepthView - presentedViewWidth
  *
- * A custom float value representing the desired width of the presented view.
- * Default value is 600.
+ * @return A custom float value representing the desired width of the presented view. Default value is 600.
  */
 @property (nonatomic, assign) CGFloat presentedViewWidth;
 
 /**
+ * JFDepthView - presentedViewOriginY
+ *
+ * @return A custom float value representing the desired y origin of the presented view.
+ * This is the space from the top of the presented view to the top of the view that it is contained in.
+ */
+@property (nonatomic, assign) CGFloat presentedViewOriginY;
+
+/**
  * JFDepthView - blurAmount
  *
- * A JFDepthViewBlurAmount enum value representing to desired blur amount for the 
- * background view behind the presented view.
- * Default value is JFDepthViewBlurAmountMedium.
+ * @return A JFDepthViewBlurAmount enum value representing to desired blur amount for the background view behind the presented view. Default value is JFDepthViewBlurAmountMedium.
  */
 @property (nonatomic, assign) JFDepthViewBlurAmount blurAmount;
 
 /**
  * JFDepthView - delegate
  *
- * Set this in your view controller that creates the JFDepthView
- * object and set it to "self". Then imaplement the delegate
- * methods above.
+ * @return Set this in your view controller that creates the JFDepthView object and set it to "self". Then imaplement the delegate methods above.
  */
 @property (nonatomic, weak) id<JFDepthViewDelegate> delegate;
 
@@ -109,11 +104,8 @@ typedef enum {
  *
  * This is the required initialization method of JFDepthView. Do not use init.
  *
- * @param UIGestureRecognizer gesRec
- * This is the desired UIGestureRecognizer you wish to place on
- * the surrounding area of your presented view to allow users to
- * dismiss the view by simply tapping this area or maybe swiping
- * downward, it's up to you.
+ * @return JFDepthView instance to use for presenting a depth view.
+ * @param gesRec This is the desired UIGestureRecognizer you wish to place on the surrounding area of your presented view to allow users to dismiss the view by simply tapping this area or maybe swiping downward, it's up to you.
  */
 - (JFDepthView*)initWithGestureRecognizer:(UIGestureRecognizer*)gesRec;
 
@@ -122,40 +114,33 @@ typedef enum {
  *
  * Use this method to present a view with a cool 3D "depth" effect.
  *
- * @param UIView topView
- * This is the view to be presented.
+ * @param topView This is the view to be presented.
  *
- * @param UIView bottomView
- * This is the view in which everything will be presented in.
+ * @param bottomView This is the view in which everything will be presented in.
  */
-- (void)presentView:(UIView*)topView inView:(UIView*)bottomView;
+- (void)presentView:(UIView*)topView inView:(UIView*)bottomView animated:(BOOL)animated;
 
 /**
  * JFDepthView - presentViewController:inView:
  *
- * Use this method to present a view controller with a cool 3D "depth" effect.
- * NOTE: Use this method is you are concerned about rotation support.
+ * @return Use this method to present a view controller with a cool 3D "depth" effect. NOTE: Use this method is you are concerned about rotation support.
  *
- * @param UIViewController topView
- * This is the view controller to be presented.
+ * @param topView This is the view controller to be presented.
  *
- * @param UIView bottomView
- * This is the view in which everything will be presented in.
+ * @param bottomView This is the view in which everything will be presented in.
  */
-- (void)presentViewController:(UIViewController*)topViewController inView:(UIView*)bottomView;
+- (void)presentViewController:(UIViewController*)topViewController inView:(UIView*)bottomView animated:(BOOL)animated;
 
 /**
  * JFDepthView - dismissPresentedViewInView
  *
- * Use this method to dismiss the presented view.
+ * @return Use this method to dismiss the presented view.
  *
  * @param UIView view
  * This must be a reference to the view that contains the presented view or view controller.
  */
-- (void)dismissPresentedViewInView:(UIView*)view;
+- (void)dismissPresentedViewInView:(UIView*)view animated:(BOOL)animated;
 @end
-
-
 
 /**
  * JFDepthViewDelegate Protocol
@@ -167,32 +152,32 @@ typedef enum {
 /**
  * JFDepthViewDelegate - willPresentDepthView
  *
- * If you implement this method it will be called immediately
- * before the animation begins to present the view.
+ * @return If you implement this method it will be called immediately before the animation begins to present the view.
+ * @param The JFDepthView instance that this delegate method is being called from.
  */
 - (void)willPresentDepthView:(JFDepthView*)depthView;
 
 /**
  * JFDepthViewDelegate - didPresentDepthView
  *
- * If you implement this method it will be called immediately
- * after the animation ends which presented the view.
+ * @return If you implement this method it will be called immediately after the animation ends which presented the view.
+ * @param The JFDepthView instance that this delegate method is being called from.
  */
 - (void)didPresentDepthView:(JFDepthView*)depthView;
 
 /**
  * JFDepthViewDelegate - willDismissDepthView
  *
- * If you implement this method it will be called immediately
- * before the animation begins to dismiss the view.
+ * @return If you implement this method it will be called immediately before the animation begins to dismiss the view.
+ * @param The JFDepthView instance that this delegate method is being called from.
  */
 - (void)willDismissDepthView:(JFDepthView*)depthView;
 
 /**
  * JFDepthViewDelegate - didDismissDepthView
  *
- * If you implement this method it will be called immediately
- * after the animation ends which dismissed the view.
+ * @return If you implement this method it will be called immediately after the animation ends which dismissed the view.
+ * @param The JFDepthView instance that this delegate method is being called from.
  */
 - (void)didDismissDepthView:(JFDepthView*)depthView;
 

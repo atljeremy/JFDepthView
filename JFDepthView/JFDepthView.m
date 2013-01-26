@@ -28,8 +28,9 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define kAnimationDuration  0.5
-#define kPresentedViewWidth 600
-#define kPresentedViewOriginY 30
+#define kiPadPresentedViewWidth 600
+#define kiPadPresentedViewOriginY 30
+#define kiPhonePresentedViewOriginY 50
 #define kLightBlurAmount  0.1f
 #define kMediumBlurAmount 0.2f
 #define kHardBlurAmount   0.3f
@@ -67,6 +68,7 @@
 @synthesize presentedViewWidth      = _presentedViewWidth;
 @synthesize blurAmount              = _blurAmount;
 @synthesize presentedViewOriginY    = _presentedViewOriginY;
+@synthesize hideStatusBarDuringPresentation = _hideStatusBarDuringPresentation;
 
 - (JFDepthView*)init {
     
@@ -83,6 +85,7 @@
         self.recognizer = gesRec;
         self.isPresenting = NO;
         self.blurAmount = JFDepthViewBlurAmountMedium;
+        self.hideStatusBarDuringPresentation = NO;
     }
     return self;
 }
@@ -240,6 +243,7 @@
     NSParameterAssert(topView);
     NSParameterAssert(bottomView);
     
+    BOOL isiPad        = [self isiPad];
     self.mainView      = bottomView;
     self.presentedView = topView;
     self.presentedView.clipsToBounds       = YES;
@@ -275,16 +279,21 @@
     
     preBottomViewFrame = bottomViewFrame;
     
-    postBottomViewFrame = CGRectMake(50,
+    CGFloat postX      = (isiPad) ? 50 : 0;
+    CGFloat postWidth  = (isiPad) ? bottomViewFrame.size.width - 100  : bottomViewFrame.size.width;
+    CGFloat postHeight = (isiPad) ? bottomViewFrame.size.height - 100 : bottomViewFrame.size.height;
+    postBottomViewFrame = CGRectMake(postX,
                                      0,
-                                     bottomViewFrame.size.width - 100,
-                                     bottomViewFrame.size.height - 100);
+                                     postWidth,
+                                     postHeight);
     
+    CGFloat shadowRadius  = (isiPad) ? 20 : 10;
+    CGFloat shadowOpacity = (isiPad) ? 1.0 : 0.5;
     self.topViewWrapper = [[UIView alloc] initWithFrame:preTopViewWrapperFrame];
     self.topViewWrapper.autoresizesSubviews = YES;
     self.topViewWrapper.layer.shadowOffset  = CGSizeMake(0, 0);
-    self.topViewWrapper.layer.shadowRadius  = 20;
-    self.topViewWrapper.layer.shadowOpacity = 1.0;
+    self.topViewWrapper.layer.shadowRadius  = shadowRadius;
+    self.topViewWrapper.layer.shadowOpacity = shadowOpacity;
     self.topViewWrapper.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.topViewWrapper.bounds].CGPath;
     self.topViewWrapper.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin  |
     UIViewAutoresizingFlexibleRightMargin |
@@ -333,8 +342,11 @@
         [self.delegate willPresentDepthView:self];
     }
     
-    float duration = (animated) ? 0.5 : 0.0;
+    if (self.hideStatusBarDuringPresentation) {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+    }
     
+    float duration = (animated) ? 0.5 : 0.0;
     [UIView animateWithDuration:duration animations:^{
         
         self.topViewWrapper.frame  = postTopViewWrapperFrame;
@@ -361,8 +373,11 @@
     
     if ([self.mainView isEqual:view]) {
         
-        float duration = (animated) ? 0.5 : 0.0;
+        if (self.hideStatusBarDuringPresentation) {
+            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+        }
         
+        float duration = (animated) ? 0.5 : 0.0;
         [UIView animateWithDuration:duration animations:^{
             
             self.topViewWrapper.frame  = preTopViewWrapperFrame;
@@ -389,7 +404,14 @@
 }
 
 - (CGFloat)getPresentedViewWidth {
-    CGFloat width = kPresentedViewWidth;
+    CGFloat width;
+    if ([self isiPad]) {
+        width = kiPadPresentedViewWidth;
+    } else {
+        width = self.presentedViewController.view.frame.size.width - 30;
+    }
+    
+    // User defined
     if (!isnan(self.presentedViewWidth) && self.presentedViewWidth > 0.0) {
         width = self.presentedViewWidth;
     }
@@ -398,7 +420,14 @@
 }
 
 - (CGFloat)getPresentedViewOriginY {
-    CGFloat y = kPresentedViewOriginY;
+    CGFloat y;
+    if ([self isiPad]) {
+        y = kiPadPresentedViewOriginY;;
+    } else {
+        y = kiPhonePresentedViewOriginY;
+    }
+    
+    // User defined
     if (!isnan(self.presentedViewOriginY) && self.presentedViewOriginY > 0.0) {
         y = self.presentedViewOriginY;
     }
@@ -446,6 +475,23 @@
             subview.hidden = NO;
         }
     }
+}
+
+# pragma mark - Device Support
+
+- (BOOL)isiPad {
+    BOOL retVal = NO;
+    
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(userInterfaceIdiom)]){
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad){
+            retVal = YES;
+        }
+        else{
+            retVal = NO;
+        }
+    }
+    
+    return retVal;
 }
 
 #pragma mark - Memory Management

@@ -93,6 +93,13 @@ typedef enum {
 @property (nonatomic, assign) JFDepthViewBlurAmount blurAmount;
 
 /**
+ * JFDepthView - hideStatusBarDuringPresentation
+ *
+ * @return A BOOL to tell JFDepthView to hide the status bar while presenting or not. Default is NO.
+ */
+@property (nonatomic, assign) BOOL hideStatusBarDuringPresentation;
+
+/**
  * JFDepthView - delegate
  *
  * @return Set this in your view controller that creates the JFDepthView object and set it to "self". Then imaplement the delegate methods above.

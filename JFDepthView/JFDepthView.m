@@ -27,6 +27,8 @@
 #import <Accelerate/Accelerate.h>
 #import <QuartzCore/QuartzCore.h>
 
+#define isiPad() [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad
+
 #define kAnimationDuration  0.5
 #define kiPadPresentedViewWidth 600
 #define kiPadPresentedViewOriginY 30
@@ -243,7 +245,7 @@
     NSParameterAssert(topView);
     NSParameterAssert(bottomView);
     
-    BOOL isiPad        = [self isiPad];
+    BOOL isiPad        = isiPad();
     self.mainView      = bottomView;
     self.presentedView = topView;
     self.presentedView.clipsToBounds       = YES;
@@ -475,23 +477,6 @@
             subview.hidden = NO;
         }
     }
-}
-
-# pragma mark - Device Support
-
-- (BOOL)isiPad {
-    BOOL retVal = NO;
-    
-    if ([[UIDevice currentDevice] respondsToSelector:@selector(userInterfaceIdiom)]){
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad){
-            retVal = YES;
-        }
-        else{
-            retVal = NO;
-        }
-    }
-    
-    return retVal;
 }
 
 #pragma mark - Memory Management

@@ -1,7 +1,9 @@
 JFDepthView
 ===========
 
-This is an iOS project for presenting views in iPad with a 3D effect to add depth. JFDepthView is only available in ARC and targets iOS 5.0+.
+This is an iOS project for presenting views in iOS with a 3D effect to add depth. JFDepthView is only available in ARC and targets iOS 5.0+.
+
+JFDepthView now supports both iPad and iPhone. (January 29th, 2013)
 
 JFDepthView uses a blurring algorithm that can be found [here](http://indieambitions.com/idevblogaday/perform-blur-vimage-accelerate-framework-tutorial/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+IndieAmbitions+%28Indie+Ambitions%29 "here") to blur the background view.
 
@@ -83,6 +85,20 @@ How To Use It:
  * This is the space from the top of the presented view to the top of the view that it is contained in.
  */
 @property (nonatomic, assign) CGFloat presentedViewOriginY;
+
+/**
+ * JFDepthView - blurAmount
+ *
+ * @return A JFDepthViewBlurAmount enum value representing to desired blur amount for the background view behind the presented view. Default value is JFDepthViewBlurAmountMedium.
+ */
+@property (nonatomic, assign) JFDepthViewBlurAmount blurAmount;
+
+/**
+ * JFDepthView - hideStatusBarDuringPresentation
+ *
+ * @return A BOOL to tell JFDepthView to hide the status bar while presenting or not. Default is NO.
+ */
+@property (nonatomic, assign) BOOL hideStatusBarDuringPresentation;
 ```
 
 ### Add rotation support to your Presenting UIViewController
@@ -147,7 +163,7 @@ Installation:
 Current Known Issues As Of: Nov. 1st, 2012
 -------------------------------------------
 
-- Not set up to work with iPhone just yet.
+- Initial iPhone support my be a little buggy when rotating. If you allow rotating in your iPhone application, I encourage you to wait for a later release of JFDepthView when rotation in iPhone is handled better.
 
 License
 -------

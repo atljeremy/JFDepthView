@@ -42,6 +42,7 @@
 @end
 
 @interface JFDepthView() {
+    CGRect originalPresentedViewFrame;
     CGRect preTopViewWrapperFrame;
     CGRect postTopViewWrapperFrame;
     CGRect preBottomViewFrame;
@@ -191,11 +192,9 @@
         
         [UIView animateWithDuration:0.2 animations:^{
             self.topViewWrapper.frame = postTopViewWrapperFrame;
-        }
-                         completion:^(BOOL finished){
-                             NSLog(@"JFDepthView: Did Rotate Animation Complete");
-                             
-                         }];
+        } completion:^(BOOL finished){
+            NSLog(@"JFDepthView: Did Rotate Animation Complete");
+        }];
         
     } else {
         // Rotated to a landscape orientation
@@ -219,11 +218,9 @@
         
         [UIView animateWithDuration:0.2 animations:^{
             self.topViewWrapper.frame = postTopViewWrapperFrame;
-        }
-                         completion:^(BOOL finished){
-                             NSLog(@"JFDepthView: Did Rotate Animation Complete");
-                             
-                         }];
+        } completion:^(BOOL finished){
+            NSLog(@"JFDepthView: Did Rotate Animation Complete");
+        }];
     }
     
 }
@@ -244,6 +241,13 @@
     
     NSParameterAssert(topView);
     NSParameterAssert(bottomView);
+    
+    /**
+     * Save the original view frame so it can be reset after being presented.
+     * This eliminates an issue of continually reducing the size of a persistant 
+     * view that is presented multiple times.
+     */
+    originalPresentedViewFrame = topView.frame;
     
     BOOL isiPad        = isiPad();
     self.mainView      = bottomView;
@@ -354,17 +358,16 @@
         self.topViewWrapper.frame  = postTopViewWrapperFrame;
         self.blurredMainView.frame = postBottomViewFrame;
         self.dimView.alpha         = 0.4;
-    }
-                     completion:^(BOOL finished){
-                         NSLog(@"JFDepthView: Present Animation Complete");
-                         
-                         self.isPresenting = YES;
-                         [self removeAllAnimations];
-                         
-                         if (self.delegate && [self.delegate respondsToSelector:@selector(didPresentDepthView:)]) {
-                             [self.delegate didPresentDepthView:self];
-                         }
-                     }];
+    } completion:^(BOOL finished){
+        NSLog(@"JFDepthView: Present Animation Complete");
+        
+        self.isPresenting = YES;
+        [self removeAllAnimations];
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(didPresentDepthView:)]) {
+            [self.delegate didPresentDepthView:self];
+        }
+    }];
 }
 
 - (void)dismissPresentedViewInView:(UIView*)view animated:(BOOL)animated {
@@ -385,37 +388,42 @@
             self.topViewWrapper.frame  = preTopViewWrapperFrame;
             self.blurredMainView.frame = preBottomViewFrame;
             self.dimView.alpha         = 0.0;
-        }
-                         completion:^(BOOL finished){
-                             NSLog(@"JFDepthView: Dismiss Animation Complete");
-                             
-                             [self showSubviews];
-                             
-                             [self removeAllViewsFromSuperView];
-                             [self removeAllAnimations];
-                             [self deallocate];
-                             
-                             if (self.delegate && [self.delegate respondsToSelector:@selector(didDismissDepthView:)]) {
-                                 [self.delegate didDismissDepthView:self];
-                             }
-                             
-                             self.isPresenting = NO;
-                             
-                         }];
+        } completion:^(BOOL finished){
+            NSLog(@"JFDepthView: Dismiss Animation Complete");
+            
+            self.presentedView.frame = originalPresentedViewFrame;
+            [self showSubviews];
+            [self removeAllViewsFromSuperView];
+            [self removeAllAnimations];
+            [self deallocate];
+            
+            if (self.delegate && [self.delegate respondsToSelector:@selector(didDismissDepthView:)]) {
+                [self.delegate didDismissDepthView:self];
+            }
+            
+            self.isPresenting = NO;
+            
+        }];
     }
 }
 
 - (CGFloat)getPresentedViewWidth {
-    CGFloat width;
-    if ([self isiPad]) {
-        width = kiPadPresentedViewWidth;
-    } else {
-        width = self.presentedViewController.view.frame.size.width - 30;
-    }
+    
+    static CGFloat width = 0;
     
     // User defined
     if (!isnan(self.presentedViewWidth) && self.presentedViewWidth > 0.0) {
         width = self.presentedViewWidth;
+    }
+    
+    if (width != 0) {
+        return width;
+    }
+    
+    if (isiPad()) {
+        width = kiPadPresentedViewWidth;
+    } else {
+        width = self.presentedViewController.view.frame.size.width - 30;
     }
     
     return width;
@@ -423,7 +431,7 @@
 
 - (CGFloat)getPresentedViewOriginY {
     CGFloat y;
-    if ([self isiPad]) {
+    if (isiPad()) {
         y = kiPadPresentedViewOriginY;;
     } else {
         y = kiPhonePresentedViewOriginY;

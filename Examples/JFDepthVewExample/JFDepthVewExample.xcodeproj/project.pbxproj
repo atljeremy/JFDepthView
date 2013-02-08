@@ -16,16 +16,18 @@
 		3F1B627F162ED89300447C56 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F1B627E162ED89300447C56 /* Default@2x.png */; };
 		3F1B6281162ED89300447C56 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F1B6280162ED89300447C56 /* Default-568h@2x.png */; };
 		3F1B6284162ED89300447C56 /* TopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1B6283162ED89300447C56 /* TopViewController.m */; };
-		3F1B6287162ED89300447C56 /* TopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F1B6285162ED89300447C56 /* TopViewController.xib */; };
+		3F1B6287162ED89300447C56 /* TopViewController~iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F1B6285162ED89300447C56 /* TopViewController~iPad.xib */; };
 		3F295B4B1631C8C900B28040 /* chuck.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 3F295B4A1631C8C900B28040 /* chuck.jpeg */; };
 		3F39A60D162F3EA1004EB1BC /* libJFDepthView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F925F82162F3E25006E5CCB /* libJFDepthView.a */; };
 		3F39A616162F3F83004EB1BC /* BottomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F39A614162F3F83004EB1BC /* BottomViewController.m */; };
-		3F39A617162F3F83004EB1BC /* BottomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F39A615162F3F83004EB1BC /* BottomViewController.xib */; };
+		3F39A617162F3F83004EB1BC /* BottomViewController~iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F39A615162F3F83004EB1BC /* BottomViewController~iPad.xib */; };
 		3F39A619162F425D004EB1BC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F39A618162F425D004EB1BC /* MapKit.framework */; };
 		3F39A6A0163084AF004EB1BC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F1B626E162ED89300447C56 /* CoreGraphics.framework */; };
 		3F39A6AB1630873D004EB1BC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F39A6AA1630873D004EB1BC /* QuartzCore.framework */; };
 		3F39A6AF16309CC6004EB1BC /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F39A6AE16309CC6004EB1BC /* CoreImage.framework */; };
 		3F77F40816444B30006B4F89 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F77F40716444B30006B4F89 /* Accelerate.framework */; };
+		3FB03ECF16C4AE7500013ABC /* BottomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FB03ECE16C4AE7500013ABC /* BottomViewController.xib */; };
+		3FB03ED116C4AF5500013ABC /* TopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FB03ED016C4AF5500013ABC /* TopViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,16 +63,18 @@
 		3F1B6280162ED89300447C56 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3F1B6282162ED89300447C56 /* TopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopViewController.h; sourceTree = "<group>"; };
 		3F1B6283162ED89300447C56 /* TopViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopViewController.m; sourceTree = "<group>"; };
-		3F1B6286162ED89300447C56 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TopViewController.xib; sourceTree = "<group>"; };
+		3F1B6286162ED89300447C56 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/TopViewController~iPad.xib"; sourceTree = "<group>"; };
 		3F295B4A1631C8C900B28040 /* chuck.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = chuck.jpeg; sourceTree = "<group>"; };
 		3F39A613162F3F83004EB1BC /* BottomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomViewController.h; sourceTree = "<group>"; };
 		3F39A614162F3F83004EB1BC /* BottomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomViewController.m; sourceTree = "<group>"; };
-		3F39A615162F3F83004EB1BC /* BottomViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BottomViewController.xib; sourceTree = "<group>"; };
+		3F39A615162F3F83004EB1BC /* BottomViewController~iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "BottomViewController~iPad.xib"; sourceTree = "<group>"; };
 		3F39A618162F425D004EB1BC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3F39A6AA1630873D004EB1BC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3F39A6AE16309CC6004EB1BC /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		3F77F40716444B30006B4F89 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		3F925F7D162F3E24006E5CCB /* JFDepthView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JFDepthView.xcodeproj; path = ../../JFDepthView.xcodeproj; sourceTree = "<group>"; };
+		3FB03ECE16C4AE7500013ABC /* BottomViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BottomViewController.xib; sourceTree = "<group>"; };
+		3FB03ED016C4AF5500013ABC /* TopViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,10 +136,12 @@
 				3F1B627A162ED89300447C56 /* AppDelegate.m */,
 				3F1B6282162ED89300447C56 /* TopViewController.h */,
 				3F1B6283162ED89300447C56 /* TopViewController.m */,
-				3F1B6285162ED89300447C56 /* TopViewController.xib */,
+				3F1B6285162ED89300447C56 /* TopViewController~iPad.xib */,
+				3FB03ED016C4AF5500013ABC /* TopViewController.xib */,
 				3F39A613162F3F83004EB1BC /* BottomViewController.h */,
 				3F39A614162F3F83004EB1BC /* BottomViewController.m */,
-				3F39A615162F3F83004EB1BC /* BottomViewController.xib */,
+				3F39A615162F3F83004EB1BC /* BottomViewController~iPad.xib */,
+				3FB03ECE16C4AE7500013ABC /* BottomViewController.xib */,
 			);
 			path = JFDepthVewExample;
 			sourceTree = "<group>";
@@ -236,9 +242,11 @@
 				3F1B627D162ED89300447C56 /* Default.png in Resources */,
 				3F1B627F162ED89300447C56 /* Default@2x.png in Resources */,
 				3F1B6281162ED89300447C56 /* Default-568h@2x.png in Resources */,
-				3F1B6287162ED89300447C56 /* TopViewController.xib in Resources */,
-				3F39A617162F3F83004EB1BC /* BottomViewController.xib in Resources */,
+				3F1B6287162ED89300447C56 /* TopViewController~iPad.xib in Resources */,
+				3F39A617162F3F83004EB1BC /* BottomViewController~iPad.xib in Resources */,
 				3F295B4B1631C8C900B28040 /* chuck.jpeg in Resources */,
+				3FB03ECF16C4AE7500013ABC /* BottomViewController.xib in Resources */,
+				3FB03ED116C4AF5500013ABC /* TopViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,12 +283,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		3F1B6285162ED89300447C56 /* TopViewController.xib */ = {
+		3F1B6285162ED89300447C56 /* TopViewController~iPad.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				3F1B6286162ED89300447C56 /* en */,
 			);
-			name = TopViewController.xib;
+			name = "TopViewController~iPad.xib";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

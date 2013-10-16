@@ -242,6 +242,8 @@
     NSParameterAssert(topView);
     NSParameterAssert(bottomView);
     
+    self.view.userInteractionEnabled = NO;
+    
     /**
      * Save the original view frame so it can be reset after being presented.
      * This eliminates an issue of continually reducing the size of a persistant 
@@ -361,6 +363,7 @@
     } completion:^(BOOL finished){
         NSLog(@"JFDepthView: Present Animation Complete");
         
+        self.view.userInteractionEnabled = YES;
         self.isPresenting = YES;
         [self removeAllAnimations];
         

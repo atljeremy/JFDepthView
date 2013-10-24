@@ -124,9 +124,8 @@ How To Use It:
 }
 ```
 
+JFDepthView will notify your Presented UIViewController of the didRotate... and willRotate... events so you can do what ever customizations need to be done to your presented view
 
-### JFDepthView will notify your Presented UIViewController of the didRotate... and willRotate... events
-### so you can do what ever customizations need to be done to your presented view
 ```objective-c
 
 #pragma mark - JFDepthView Rotation Support for Presented UIViewController

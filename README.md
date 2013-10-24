@@ -162,7 +162,7 @@ Installation:
 ### Add Dependencies
 
 - In your application's project app target settings, find the "Build Phases" section and open the "Link Binary With Libraries" block
-- Click the "+" button and select the add the following frameworks
+- Click the "+" button and add the following frameworks
 ![frameworks](https://www.evernote.com/shard/s4/sh/1a808b87-4e64-47ea-9fac-a1c8f8651223/f734ee4641673effc71fbf1fb9e6dacc/deep/0/JFDepthVewExample.xcodeproj.png)
 
 Current Known Issues As Of: Nov. 1st, 2012

@@ -168,7 +168,7 @@ Installation:
 Current Known Issues As Of: Nov. 1st, 2012
 -------------------------------------------
 
-- Initial iPhone support my be a little buggy when rotating. If you allow rotating in your iPhone application, I encourage you to wait for a later release of JFDepthView when rotation in iPhone is handled better.
+- No none issues. If you find any, please report them using a GitHub Issue. Thanks! :)
 
 License
 -------

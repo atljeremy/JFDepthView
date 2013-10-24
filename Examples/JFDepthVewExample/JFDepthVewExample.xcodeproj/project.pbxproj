@@ -13,7 +13,7 @@
 		1A0264A018185A6700E4D733 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A02649F18185A6700E4D733 /* CoreMedia.framework */; };
 		1A0264A918185AB100E4D733 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A02649D18185A5900E4D733 /* CoreVideo.framework */; };
 		1A0264AF1818976B00E4D733 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F77F40716444B30006B4F89 /* Accelerate.framework */; };
-		1A0264B11818B13800E4D733 /* Sunrise.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A0264B01818B13800E4D733 /* Sunrise.jpg */; };
+		1A0264B31818BE6E00E4D733 /* Sunrise.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A0264B21818BE6E00E4D733 /* Sunrise.jpg */; };
 		3F1B626B162ED89300447C56 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F1B626A162ED89300447C56 /* UIKit.framework */; };
 		3F1B626D162ED89300447C56 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F1B626C162ED89300447C56 /* Foundation.framework */; };
 		3F1B6275162ED89300447C56 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F1B6273162ED89300447C56 /* InfoPlist.strings */; };
@@ -58,7 +58,7 @@
 		1A02649B18185A5000E4D733 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		1A02649D18185A5900E4D733 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		1A02649F18185A6700E4D733 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		1A0264B01818B13800E4D733 /* Sunrise.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Sunrise.jpg; path = ../../../../../Desktop/Sunrise.jpg; sourceTree = "<group>"; };
+		1A0264B21818BE6E00E4D733 /* Sunrise.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Sunrise.jpg; sourceTree = "<group>"; };
 		3F1B6266162ED89300447C56 /* JFDepthVewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JFDepthVewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F1B626A162ED89300447C56 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3F1B626C162ED89300447C56 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -167,7 +167,7 @@
 		3F1B6271162ED89300447C56 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1A0264B01818B13800E4D733 /* Sunrise.jpg */,
+				1A0264B21818BE6E00E4D733 /* Sunrise.jpg */,
 				3F295B4A1631C8C900B28040 /* chuck.jpeg */,
 				3F1B6272162ED89300447C56 /* JFDepthVewExample-Info.plist */,
 				3F1B6273162ED89300447C56 /* InfoPlist.strings */,
@@ -266,7 +266,7 @@
 				3F295B4B1631C8C900B28040 /* chuck.jpeg in Resources */,
 				3FB03ECF16C4AE7500013ABC /* BottomViewController~iphone.xib in Resources */,
 				3FB03ED116C4AF5500013ABC /* TopViewController~iphone.xib in Resources */,
-				1A0264B11818B13800E4D733 /* Sunrise.jpg in Resources */,
+				1A0264B31818BE6E00E4D733 /* Sunrise.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

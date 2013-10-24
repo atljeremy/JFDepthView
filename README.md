@@ -10,14 +10,11 @@ JFDepthView uses a blurring algorithm that can be found [here](http://indieambit
 What It Looks Like:
 ------------------
 
-### Before Presentation
-![Before Presentation](http://imageshack.us/a/img853/6004/screenshot20121102at813.png)
+### iPad
+![iPad](https://www.evernote.com/shard/s4/sh/f6867af8-97da-446a-84ca-78cffa475bc9/10937965ff3df0b205c68efc1936214d/res/d7ebc2b1-e72c-4fab-8065-165c99729c80/skitch.png?resizeSmall&width=832)
 
-### Mid Presentation
-![Mid Presentation](http://imageshack.us/a/img525/5831/screenshot20121102at814.png)
-
-### Final Presentation
-![Final Presentation](http://imageshack.us/a/img209/6004/screenshot20121102at813.png)
+### iPhone
+![iPhone](https://www.evernote.com/shard/s4/sh/d6aa555b-df44-4acc-9481-883b52bf907d/2f0fed09193a6cba4ed73690464d82f2/res/fc0ac6ba-4a48-4041-b55f-6168819f8d8e/skitch.png?resizeSmall&width=832)
 
 How To Use It:
 -------------

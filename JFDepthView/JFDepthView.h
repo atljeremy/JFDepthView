@@ -100,6 +100,13 @@ typedef enum {
 @property (nonatomic, assign) BOOL hideStatusBarDuringPresentation;
 
 /**
+ * JFDepthView - recognizer
+ *
+ * @return The UIGestureRecognizer to be used on the area around the presentedView to dismiss the presentedView.
+ */
+@property (nonatomic, strong) UIGestureRecognizer* recognizer;
+
+/**
  * JFDepthView - delegate
  *
  * @return Set this in your view controller that creates the JFDepthView object and set it to "self". Then imaplement the delegate methods above.
@@ -107,14 +114,14 @@ typedef enum {
 @property (nonatomic, weak) id<JFDepthViewDelegate> delegate;
 
 /**
- * JFDepthView - initWithGestureRecognizer:
+ * DEPRECATED
  *
- * This is the required initialization method of JFDepthView. Do not use init.
+ * JFDepthView - initWithGestureRecognizer:
  *
  * @return JFDepthView instance to use for presenting a depth view.
  * @param gesRec This is the desired UIGestureRecognizer you wish to place on the surrounding area of your presented view to allow users to dismiss the view by simply tapping this area or maybe swiping downward, it's up to you.
  */
-- (JFDepthView*)initWithGestureRecognizer:(UIGestureRecognizer*)gesRec;
+- (JFDepthView*)initWithGestureRecognizer:(UIGestureRecognizer*)gesRec __deprecated_msg("Use init and set the gestureRecognizer property instead");
 
 /**
  * JFDepthView - presentView:inView:

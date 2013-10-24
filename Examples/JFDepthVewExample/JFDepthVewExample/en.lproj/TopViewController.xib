@@ -7,33 +7,33 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TopViewController">
             <connections>
-                <outlet property="topView" destination="JmS-a3-hDJ" id="Hd1-gM-pYG"/>
-                <outlet property="view" destination="JmS-a3-hDJ" id="er1-fO-82P"/>
+                <outlet property="topView" destination="2" id="14"/>
+                <outlet property="view" destination="2" id="3"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="JmS-a3-hDJ">
+        <view contentMode="scaleToFill" id="2">
             <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="chuck.jpeg" id="ONo-M5-jrs">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="chuck.jpeg" id="15">
                     <rect key="frame" x="166" y="44" width="437" height="232"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <navigationBar contentMode="scaleToFill" id="V1i-q2-6cB">
+                <navigationBar contentMode="scaleToFill" id="16">
                     <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <items>
-                        <navigationItem title="Presented View" id="1rn-iu-22t">
-                            <barButtonItem key="rightBarButtonItem" title="Close" id="h6F-pP-5NP">
+                        <navigationItem title="Presented View" id="20">
+                            <barButtonItem key="rightBarButtonItem" title="Close" id="21">
                                 <connections>
-                                    <action selector="closeView:" destination="-1" id="bxc-GD-Zjq"/>
+                                    <action selector="closeView:" destination="-1" id="24"/>
                                 </connections>
                             </barButtonItem>
                         </navigationItem>
                     </items>
                 </navigationBar>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="TkO-lP-JIK">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="22">
                     <rect key="frame" x="20" y="298" width="728" height="358"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

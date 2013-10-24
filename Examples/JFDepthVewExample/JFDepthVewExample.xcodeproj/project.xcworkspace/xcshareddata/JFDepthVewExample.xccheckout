@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D4965909-1FB5-49FA-A77A-53C9CCF6DF7A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>JFDepthVewExample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>AD0ABE6C-29BA-4D3E-8E7D-BE9B45467C66</key>
+		<string>ssh://github.com/atljeremy/JFDepthView</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Examples/JFDepthVewExample/JFDepthVewExample.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>AD0ABE6C-29BA-4D3E-8E7D-BE9B45467C66</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/atljeremy/JFDepthView</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>AD0ABE6C-29BA-4D3E-8E7D-BE9B45467C66</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>AD0ABE6C-29BA-4D3E-8E7D-BE9B45467C66</string>
+			<key>IDESourceControlWCCName</key>
+			<string>JFDepthView</string>
+		</dict>
+	</array>
+</dict>
+</plist>

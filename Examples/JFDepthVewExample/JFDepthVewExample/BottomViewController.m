@@ -29,15 +29,16 @@
 {
     [super viewDidLoad];
     
-    self.topViewController = [[TopViewController alloc] initWithNibName:@"TopViewController" bundle:nil];
+    self.topViewController = [[TopViewController alloc] init];
     UITapGestureRecognizer* tapRec = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
-    self.depthView = [[JFDepthView alloc] initWithGestureRecognizer:tapRec];
+    self.depthView = [[JFDepthView alloc] init];
     self.depthView.delegate = self;
     
     // Optional properties, use these to customize your presentations
-    // self.depthView.presentedViewWidth = 700;
-    // self.depthView.presentedViewOriginY = 200;
-    // self.depthView.blurAmount = JFDepthViewBlurAmountHard;
+//    self.depthView.presentedViewWidth = 700;
+//    self.depthView.presentedViewOriginY = 200;
+//    self.depthView.blurAmount = JFDepthViewBlurAmountLight;
+    self.depthView.recognizer = tapRec;
     
     self.topViewController.depthViewReference = self.depthView;
     self.topViewController.presentedInView = self.view;

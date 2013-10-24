@@ -26,6 +26,8 @@
 #import "JFDepthView.h"
 #import <Accelerate/Accelerate.h>
 #import <QuartzCore/QuartzCore.h>
+#import "GPUImageiOSBlurFilter.h"
+#import "UIImage+ImageEffects.h"
 
 #define isiPad() [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad
 
@@ -33,12 +35,12 @@
 #define kiPadPresentedViewWidth 600
 #define kiPadPresentedViewOriginY 30
 #define kiPhonePresentedViewOriginY 50
-#define kLightBlurAmount  0.1f
-#define kMediumBlurAmount 0.2f
-#define kHardBlurAmount   0.3f
+#define kLightBlurAmount  (isiPad()) ? 2.0f : 1.0f
+#define kMediumBlurAmount (isiPad()) ? 4.0f : 3.0f
+#define kHardBlurAmount   (isiPad()) ? 6.0f : 5.0f
 
 @interface UIImage (Blur)
--(UIImage *)boxblurImageWithBlur:(CGFloat)blur;
+- (UIImage*)imageByBlurringImageWithBlurRadius:(float)radius;
 @end
 
 @interface JFDepthView() {
@@ -52,7 +54,6 @@
 @property (nonatomic, strong) UIView* topViewWrapper;
 @property (nonatomic, strong) UIView* dimView;
 @property (nonatomic, strong) UIImageView* blurredMainView;
-@property (nonatomic, strong) UIGestureRecognizer* recognizer;
 @property (nonatomic, strong) UIView* presentedViewContainer;
 @property (nonatomic, strong) UIImage* viewImage;
 @end
@@ -73,33 +74,33 @@
 @synthesize presentedViewOriginY    = _presentedViewOriginY;
 @synthesize hideStatusBarDuringPresentation = _hideStatusBarDuringPresentation;
 
-- (JFDepthView*)init {
-    
-    @throw [NSException exceptionWithName:@"JFDepthView Invalid Initialization"
-                                   reason:@"JFDepthView must be initialized using initWithGestureRecognizer:"
-                                 userInfo:nil];
-    return nil;
-}
-
-- (JFDepthView*)initWithGestureRecognizer:(UIGestureRecognizer*)gesRec {
+- (id)init
+{
     if (self = [super init]) {
         NSLog(@"JFDepthView Initialized!");
         
-        self.recognizer = gesRec;
+        self.recognizer   = nil;
         self.isPresenting = NO;
-        self.blurAmount = JFDepthViewBlurAmountMedium;
+        self.blurAmount   = JFDepthViewBlurAmountMedium;
         self.hideStatusBarDuringPresentation = NO;
     }
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidLoad
+/**
+ * DEPRECATED
+ */
+- (JFDepthView*)initWithGestureRecognizer:(UIGestureRecognizer*)gesRec
 {
-    [super viewDidLoad];
+    if (self = [super init]) {
+        NSLog(@"JFDepthView Initialized!");
+        
+        self.recognizer   = gesRec;
+        self.isPresenting = NO;
+        self.blurAmount   = JFDepthViewBlurAmountMedium;
+        self.hideStatusBarDuringPresentation = NO;
+    }
+    return self;
 }
 
 - (void)viewDidUnload
@@ -112,7 +113,9 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    if (self.presentedViewController) {
+        [self.presentedViewController didReceiveMemoryWarning];
+    }
 }
 
 #pragma mark - iOS 5 Rotation Support
@@ -123,37 +126,31 @@
 
 #pragma mark - iOS 6 Rotation Support
 
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
     return UIInterfaceOrientationMaskAll;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (NSUInteger)supportedInterfaceOrientations
+{
     return UIInterfaceOrientationMaskAll;
 }
 
-- (BOOL)shouldAutorotate {
+- (BOOL)shouldAutorotate
+{
     return NO;
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
     if (!self.presentedViewController) return;
     
     // Notify presented view of rotation event so it can handle updating things as needed.
     [self.presentedViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    
-    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
-        // Rotating to a landscape orientation
-        
-    } else {
-        // Rotated to a portrait orientation
-        
-    }
-    
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
     if (!self.presentedViewController) return;
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     if (UIInterfaceOrientationIsLandscape(fromInterfaceOrientation)
@@ -225,8 +222,8 @@
     
 }
 
-- (void)presentViewController:(UIViewController*)topViewController inView:(UIView*)bottomView animated:(BOOL)animated {
-    
+- (void)presentViewController:(UIViewController*)topViewController inView:(UIView*)bottomView animated:(BOOL)animated
+{
     NSParameterAssert(topViewController);
     NSParameterAssert(bottomView);
     
@@ -237,8 +234,8 @@
     [self presentView:self.presentedViewController.view inView:bottomView animated:animated];
 }
 
-- (void)presentView:(UIView*)topView inView:(UIView*)bottomView animated:(BOOL)animated {
-    
+- (void)presentView:(UIView*)topView inView:(UIView*)bottomView animated:(BOOL)animated
+{
     NSParameterAssert(topView);
     NSParameterAssert(bottomView);
     
@@ -265,8 +262,8 @@
     
     bottomViewFrame        = self.mainView.bounds;
     CGRect topViewFrame    = self.presentedView.bounds;
-    CGRect newTopViewFrame = CGRectMake(topViewFrame.origin.x,
-                                        topViewFrame.origin.y,
+    CGRect newTopViewFrame = CGRectMake(CGRectGetMinX(topViewFrame),
+                                        CGRectGetMinY(topViewFrame),
                                         presentedViewWidth,
                                         topViewFrame.size.height);
     
@@ -287,9 +284,9 @@
     
     preBottomViewFrame = bottomViewFrame;
     
-    CGFloat postX      = (isiPad) ? 50 : 0;
-    CGFloat postWidth  = (isiPad) ? bottomViewFrame.size.width - 100  : bottomViewFrame.size.width;
-    CGFloat postHeight = (isiPad) ? bottomViewFrame.size.height - 100 : bottomViewFrame.size.height;
+    CGFloat postX      = (isiPad) ? 30 : 0;
+    CGFloat postWidth  = (isiPad) ? bottomViewFrame.size.width - 60  : bottomViewFrame.size.width;
+    CGFloat postHeight = (isiPad) ? bottomViewFrame.size.height - 60 : bottomViewFrame.size.height;
     postBottomViewFrame = CGRectMake(postX,
                                      0,
                                      postWidth,
@@ -311,6 +308,8 @@
     
     self.presentedViewContainer = [[UIView alloc] initWithFrame:bottomViewFrame];
     self.presentedViewContainer.autoresizesSubviews = YES;
+    self.presentedViewContainer.backgroundColor = [UIColor blackColor];
+    self.presentedViewContainer.alpha = 0.0;
     self.presentedViewContainer.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin  |
     UIViewAutoresizingFlexibleRightMargin |
     UIViewAutoresizingFlexibleTopMargin   |
@@ -318,21 +317,27 @@
     UIViewAutoresizingFlexibleHeight      |
     UIViewAutoresizingFlexibleWidth;
     
-    UIGraphicsBeginImageContext(self.mainView.bounds.size);
-    [self.mainView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    CGFloat padding = (isiPad()) ? 18 : 10;
+    CGSize size = CGSizeMake(CGRectGetWidth(self.mainView.bounds) + padding, CGRectGetHeight(self.mainView.bounds) + padding);
+    UIGraphicsBeginImageContext(size);
+    CGContextRef c = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(c, (padding/2), (padding/2));
+    [self.mainView.layer renderInContext:c];
     self.viewImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
     self.blurredMainView = [[UIImageView alloc] initWithFrame:preBottomViewFrame];
     self.blurredMainView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin  |
-    UIViewAutoresizingFlexibleRightMargin ;
+    UIViewAutoresizingFlexibleRightMargin;
     
     self.blurredMainView.image = [self getBlurredImage];
     
     self.dimView = [[UIView alloc] initWithFrame:bottomViewFrame];
-    self.dimView.backgroundColor = [UIColor blackColor];
+    self.dimView.backgroundColor = [UIColor clearColor];
     self.dimView.alpha = 0.0;
-    [self.dimView addGestureRecognizer:self.recognizer];
+    if (self.recognizer) {
+        [self.dimView addGestureRecognizer:self.recognizer];
+    }
     self.dimView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
     UIViewAutoresizingFlexibleHeight;
     
@@ -342,8 +347,7 @@
     [self.view addSubview:self.presentedViewContainer];
     [self.view addSubview:self.topViewWrapper];
     
-    [self hideSubviews];
-    
+    self.view.backgroundColor = [UIColor clearColor];
     [self.mainView addSubview:self.view];
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(willPresentDepthView:)]) {
@@ -357,9 +361,12 @@
     float duration = (animated) ? 0.5 : 0.0;
     [UIView animateWithDuration:duration animations:^{
         
-        self.topViewWrapper.frame  = postTopViewWrapperFrame;
+        self.topViewWrapper.frame = postTopViewWrapperFrame;
         self.blurredMainView.frame = postBottomViewFrame;
-        self.dimView.alpha         = 0.4;
+        self.presentedViewContainer.alpha = 1.0;
+        self.dimView.alpha = 1.0;
+        [self hideSubviews];
+        
     } completion:^(BOOL finished){
         NSLog(@"JFDepthView: Present Animation Complete");
         
@@ -373,8 +380,8 @@
     }];
 }
 
-- (void)dismissPresentedViewInView:(UIView*)view animated:(BOOL)animated {
-    
+- (void)dismissPresentedViewInView:(UIView*)view animated:(BOOL)animated
+{
     if (self.delegate && [self.delegate respondsToSelector:@selector(willDismissDepthView:)]) {
         [self.delegate willDismissDepthView:self];
     }
@@ -388,14 +395,16 @@
         float duration = (animated) ? 0.5 : 0.0;
         [UIView animateWithDuration:duration animations:^{
             
-            self.topViewWrapper.frame  = preTopViewWrapperFrame;
+            self.topViewWrapper.frame = preTopViewWrapperFrame;
             self.blurredMainView.frame = preBottomViewFrame;
-            self.dimView.alpha         = 0.0;
+            self.presentedViewContainer.alpha = 0.0;
+            self.dimView.alpha = 0.0;
+            [self showSubviews];
+            
         } completion:^(BOOL finished){
             NSLog(@"JFDepthView: Dismiss Animation Complete");
             
             self.presentedView.frame = originalPresentedViewFrame;
-            [self showSubviews];
             [self removeAllViewsFromSuperView];
             [self removeAllAnimations];
             [self deallocate];
@@ -410,7 +419,8 @@
     }
 }
 
-- (CGFloat)getPresentedViewWidth {
+- (CGFloat)getPresentedViewWidth
+{
     
     static CGFloat width = 0;
     
@@ -432,7 +442,8 @@
     return width;
 }
 
-- (CGFloat)getPresentedViewOriginY {
+- (CGFloat)getPresentedViewOriginY
+{
     CGFloat y;
     if (isiPad()) {
         y = kiPadPresentedViewOriginY;;
@@ -448,7 +459,8 @@
     return y;
 }
 
-- (float)getBlurAmount {
+- (float)getBlurAmount
+{
     float amount;
     switch (self.blurAmount) {
         case JFDepthViewBlurAmountLight:
@@ -468,24 +480,29 @@
     return amount;
 }
 
-- (UIImage*)getBlurredImage {
-    NSData *imageData = UIImageJPEGRepresentation(self.viewImage, 1); // convert to jpeg
-    UIImage* image = [UIImage imageWithData:imageData];
-    return [image boxblurImageWithBlur:self.getBlurAmount];
+- (UIImage*)getBlurredImage
+{
+// Uncomment to use a faster blurring option but with less visual appeal
+//    NSData *imageData = UIImageJPEGRepresentation(self.viewImage, 1);
+//    UIImage* image = [UIImage imageWithData:imageData];
+//    return [image applyLightEffect];
+
+    // A slower blurring option but looks FAR better than any other option to date
+    return [self.viewImage imageByBlurringImageWithBlurRadius:[self getBlurAmount]];
 }
 
 - (void)hideSubviews {
     for (UIView* subview in self.mainView.subviews) {
-        if (subview) {
-            subview.hidden = YES;
+        if (subview && ![subview isEqual:self.view]) {
+            subview.alpha = 0.0;
         }
     }
 }
 
 - (void)showSubviews {
     for (UIView* subview in self.mainView.subviews) {
-        if (subview) {
-            subview.hidden = NO;
+        if (subview && ![subview isEqual:self.view]) {
+            subview.alpha = 1.0;
         }
     }
 }
@@ -528,67 +545,13 @@
 
 @implementation UIImage (Blur)
 
--(UIImage *)boxblurImageWithBlur:(CGFloat)blur {
-    if (blur < 0.f || blur > 1.f) {
-        blur = 0.5f;
-    }
-    int boxSize = (int)(blur * 50);
-    boxSize = boxSize - (boxSize % 2) + 1;
-    
-    CGImageRef img = self.CGImage;
-    
-    vImage_Buffer inBuffer, outBuffer;
-    
-    vImage_Error error;
-    
-    void *pixelBuffer;
-    
-    CGDataProviderRef inProvider = CGImageGetDataProvider(img);
-    CFDataRef inBitmapData = CGDataProviderCopyData(inProvider);
-    
-    inBuffer.width = CGImageGetWidth(img);
-    inBuffer.height = CGImageGetHeight(img);
-    inBuffer.rowBytes = CGImageGetBytesPerRow(img);
-    
-    inBuffer.data = (void*)CFDataGetBytePtr(inBitmapData);
-    
-    pixelBuffer = malloc(CGImageGetBytesPerRow(img) * CGImageGetHeight(img));
-    
-    if(pixelBuffer == NULL)
-        NSLog(@"No pixelbuffer");
-    
-    outBuffer.data = pixelBuffer;
-    outBuffer.width = CGImageGetWidth(img);
-    outBuffer.height = CGImageGetHeight(img);
-    outBuffer.rowBytes = CGImageGetBytesPerRow(img);
-    
-    error = vImageBoxConvolve_ARGB8888(&inBuffer, &outBuffer, NULL, 0, 0, boxSize, boxSize, NULL, kvImageEdgeExtend);
-    
-    if (error) {
-        NSLog(@"JFDepthView: error from convolution %ld", error);
-    }
-    
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef ctx = CGBitmapContextCreate(outBuffer.data,
-                                             outBuffer.width,
-                                             outBuffer.height,
-                                             8,
-                                             outBuffer.rowBytes,
-                                             colorSpace,
-                                             kCGImageAlphaNoneSkipLast);
-    CGImageRef imageRef = CGBitmapContextCreateImage (ctx);
-    UIImage *returnImage = [UIImage imageWithCGImage:imageRef];
-    
-    //clean up
-    CGContextRelease(ctx);
-    CGColorSpaceRelease(colorSpace);
-    
-    free(pixelBuffer);
-    CFRelease(inBitmapData);
-    
-    CGImageRelease(imageRef);
-    
-    return returnImage;
+- (UIImage*)imageByBlurringImageWithBlurRadius:(float)radius
+{
+    GPUImageiOSBlurFilter* iOSBlur = [[GPUImageiOSBlurFilter alloc] init];
+    iOSBlur.blurRadiusInPixels = radius;
+    iOSBlur.saturation = 1.3;
+    iOSBlur.downsampling = (isiPad()) ? 3.0 : 2.0;
+    return [iOSBlur imageByFilteringImage:self];
 }
 
 @end

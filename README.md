@@ -11,10 +11,10 @@ What It Looks Like:
 ------------------
 
 ### iPad
-![iPad](https://www.evernote.com/shard/s4/sh/f6867af8-97da-446a-84ca-78cffa475bc9/10937965ff3df0b205c68efc1936214d/res/d7ebc2b1-e72c-4fab-8065-165c99729c80/skitch.png)
+![iPad](https://www.evernote.com/shard/s4/sh/f6867af8-97da-446a-84ca-78cffa475bc9/10937965ff3df0b205c68efc1936214d/deep/0/depthview-ipad.png)
 
 ### iPhone
-![iPhone](https://www.evernote.com/shard/s4/sh/d6aa555b-df44-4acc-9481-883b52bf907d/2f0fed09193a6cba4ed73690464d82f2/res/fc0ac6ba-4a48-4041-b55f-6168819f8d8e/skitch.png)
+![iPhone](https://www.evernote.com/shard/s4/sh/d6aa555b-df44-4acc-9481-883b52bf907d/2f0fed09193a6cba4ed73690464d82f2/deep/0/depthview-iphone.png)
 
 How To Use It:
 -------------

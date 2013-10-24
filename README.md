@@ -97,6 +97,13 @@ How To Use It:
  * @return A BOOL to tell JFDepthView to hide the status bar while presenting or not. Default is NO.
  */
 @property (nonatomic, assign) BOOL hideStatusBarDuringPresentation;
+
+/**
+ * JFDepthView - recognizer
+ *
+ * @return The UIGestureRecognizer to be used on the area around the presentedView to dismiss the presentedView.
+ */
+@property (nonatomic, strong) UIGestureRecognizer* recognizer;
 ```
 
 ### Add rotation support to your Presenting UIViewController

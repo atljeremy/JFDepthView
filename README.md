@@ -168,7 +168,7 @@ Installation:
 Current Known Issues As Of: Oct. 23rd, 2013
 -------------------------------------------
 
-- No none issues. If you find any, please report them using a GitHub Issue. Thanks! :)
+- No known issues. If you find any, please report them using a GitHub Issue. Thanks! :)
 
 License
 -------

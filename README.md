@@ -25,6 +25,9 @@ What's New:
 What It Looks Like:
 ------------------
 
+###Video
+See it in action here: [http://www.youtube.com/watch?v=X5lmn5y-FUw](http://www.youtube.com/watch?v=X5lmn5y-FUw)
+
 ### iPad
 ![iPad](https://www.evernote.com/shard/s4/sh/f6867af8-97da-446a-84ca-78cffa475bc9/10937965ff3df0b205c68efc1936214d/deep/0/depthview-ipad.png)
 

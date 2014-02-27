@@ -13,6 +13,8 @@ What's New:
     - JFDepthViewAnimationOptionPerspectiveTransformAndBlur
   
 - Removed previously deprecated initializer `initWithGestureRecognizer:`
+- Removed GPUImage dependency (Bad idea to add it in the first place, my bad)
+- Reduced the number of frameworks needed down to only 3 (win!)
 - Now targets iOS 7+ only
 - Code refactoring and optimization
 - Added subtle bounce to presented view (Trust me, it's beautiful, like a baby unicorn)

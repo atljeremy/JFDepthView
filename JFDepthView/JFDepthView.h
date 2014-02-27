@@ -26,12 +26,18 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
-typedef enum {
+typedef NS_ENUM(NSInteger, JFDepthViewBlurAmount) {
     JFDepthViewBlurAmountLight,
     JFDepthViewBlurAmountMedium,
     JFDepthViewBlurAmountHard
-    
-} JFDepthViewBlurAmount;
+};
+
+typedef NS_ENUM(NSInteger, JFDepthViewAnimationOption) {
+    JFDepthViewAnimationOptionPushBack,
+    JFDepthViewAnimationOptionPushBackAndBlur,
+    JFDepthViewAnimationOptionPerspectiveTransform,
+    JFDepthViewAnimationOptionPerspectiveTransformAndBlur,
+};
 
 @protocol JFDepthViewDelegate;
 
@@ -61,7 +67,7 @@ typedef enum {
  *
  * @return This is the view controller that is being presented. This property will be set automatically when you call the presentViewController:inView: method.
  */
-@property (nonatomic, weak) UIViewController* presentedViewController;
+@property (nonatomic, weak, readwrite) UIViewController* presentedViewController;
 
 /**
  * JFDepthView - isPresenting
@@ -88,9 +94,16 @@ typedef enum {
 /**
  * JFDepthView - blurAmount
  *
- * @return A JFDepthViewBlurAmount enum value representing to desired blur amount for the background view behind the presented view. Default value is JFDepthViewBlurAmountMedium.
+ * @return A JFDepthViewBlurAmount enum value representing the desired blur amount for the background view behind the presented view. Default value is JFDepthViewBlurAmountMedium.
  */
 @property (nonatomic, assign) JFDepthViewBlurAmount blurAmount;
+
+/**
+ * JFDepthView - animationOption
+ *
+ * @return A JFDepthViewAnimationOption enum value representing the desired animation for the presentation. Default value is JFDepthViewAnimationOptionPerspectiveTransform.
+ */
+@property (nonatomic, assign) JFDepthViewAnimationOption animationOption;
 
 /**
  * JFDepthView - hideStatusBarDuringPresentation
@@ -112,16 +125,6 @@ typedef enum {
  * @return Set this in your view controller that creates the JFDepthView object and set it to "self". Then imaplement the delegate methods above.
  */
 @property (nonatomic, weak) id<JFDepthViewDelegate> delegate;
-
-/**
- * DEPRECATED
- *
- * JFDepthView - initWithGestureRecognizer:
- *
- * @return JFDepthView instance to use for presenting a depth view.
- * @param gesRec This is the desired UIGestureRecognizer you wish to place on the surrounding area of your presented view to allow users to dismiss the view by simply tapping this area or maybe swiping downward, it's up to you.
- */
-- (JFDepthView*)initWithGestureRecognizer:(UIGestureRecognizer*)gesRec __deprecated_msg("Use init and set the gestureRecognizer property instead");
 
 /**
  * JFDepthView - presentView:inView:

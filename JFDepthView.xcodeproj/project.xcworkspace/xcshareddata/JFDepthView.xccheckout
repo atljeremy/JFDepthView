@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>D4965909-1FB5-49FA-A77A-53C9CCF6DF7A</string>
+	<string>5BB37635-699F-4243-ABBE-84A61A88D232</string>
 	<key>IDESourceControlProjectName</key>
-	<string>JFDepthVewExample</string>
+	<string>JFDepthView</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>AD0ABE6C-29BA-4D3E-8E7D-BE9B45467C66</key>
-		<string>ssh://github.com/atljeremy/JFDepthView</string>
+		<key>2ED58B02-F8A5-407F-B753-18FA4935C3EA</key>
+		<string>ssh://github.com/atljeremy/JFDepthView.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Examples/JFDepthVewExample/JFDepthVewExample.xcodeproj/project.xcworkspace</string>
+	<string>JFDepthView.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>AD0ABE6C-29BA-4D3E-8E7D-BE9B45467C66</key>
-		<string>../../../..</string>
+		<key>2ED58B02-F8A5-407F-B753-18FA4935C3EA</key>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/atljeremy/JFDepthView</string>
+	<string>ssh://github.com/atljeremy/JFDepthView.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>AD0ABE6C-29BA-4D3E-8E7D-BE9B45467C66</string>
+	<string>2ED58B02-F8A5-407F-B753-18FA4935C3EA</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>AD0ABE6C-29BA-4D3E-8E7D-BE9B45467C66</string>
+			<string>2ED58B02-F8A5-407F-B753-18FA4935C3EA</string>
 			<key>IDESourceControlWCCName</key>
 			<string>JFDepthView</string>
 		</dict>

@@ -8,14 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1A02644B1818558D00E4D733 /* TopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A02644A1818558D00E4D733 /* TopViewController.xib */; };
-		1A02649A18185A4900E4D733 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A02649918185A4900E4D733 /* AVFoundation.framework */; };
-		1A02649C18185A5000E4D733 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A02649B18185A5000E4D733 /* OpenGLES.framework */; };
-		1A0264A018185A6700E4D733 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A02649F18185A6700E4D733 /* CoreMedia.framework */; };
-		1A0264A918185AB100E4D733 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A02649D18185A5900E4D733 /* CoreVideo.framework */; };
-		1A0264AF1818976B00E4D733 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F77F40716444B30006B4F89 /* Accelerate.framework */; };
 		1A0264B31818BE6E00E4D733 /* Sunrise.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1A0264B21818BE6E00E4D733 /* Sunrise.jpg */; };
-		3F1B626B162ED89300447C56 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F1B626A162ED89300447C56 /* UIKit.framework */; };
-		3F1B626D162ED89300447C56 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F1B626C162ED89300447C56 /* Foundation.framework */; };
 		3F1B6275162ED89300447C56 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F1B6273162ED89300447C56 /* InfoPlist.strings */; };
 		3F1B6277162ED89300447C56 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1B6276162ED89300447C56 /* main.m */; };
 		3F1B627B162ED89300447C56 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1B627A162ED89300447C56 /* AppDelegate.m */; };
@@ -24,13 +17,13 @@
 		3F1B6281162ED89300447C56 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F1B6280162ED89300447C56 /* Default-568h@2x.png */; };
 		3F1B6284162ED89300447C56 /* TopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1B6283162ED89300447C56 /* TopViewController.m */; };
 		3F295B4B1631C8C900B28040 /* chuck.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 3F295B4A1631C8C900B28040 /* chuck.jpeg */; };
+		3F2BEE2118BE995700C888F4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F1B626A162ED89300447C56 /* UIKit.framework */; };
+		3F2BEE2218BE99A000C888F4 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F77F40716444B30006B4F89 /* Accelerate.framework */; };
+		3F2BEE2318BE99DF00C888F4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F1B626E162ED89300447C56 /* CoreGraphics.framework */; };
+		3F2BEE2418BEB5FC00C888F4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F39A6AA1630873D004EB1BC /* QuartzCore.framework */; };
 		3F39A60D162F3EA1004EB1BC /* libJFDepthView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F925F82162F3E25006E5CCB /* libJFDepthView.a */; };
 		3F39A616162F3F83004EB1BC /* BottomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F39A614162F3F83004EB1BC /* BottomViewController.m */; };
 		3F39A617162F3F83004EB1BC /* BottomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F39A615162F3F83004EB1BC /* BottomViewController.xib */; };
-		3F39A619162F425D004EB1BC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F39A618162F425D004EB1BC /* MapKit.framework */; };
-		3F39A6A0163084AF004EB1BC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F1B626E162ED89300447C56 /* CoreGraphics.framework */; };
-		3F39A6AB1630873D004EB1BC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F39A6AA1630873D004EB1BC /* QuartzCore.framework */; };
-		3F39A6AF16309CC6004EB1BC /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F39A6AE16309CC6004EB1BC /* CoreImage.framework */; };
 		3FB03ECF16C4AE7500013ABC /* BottomViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FB03ECE16C4AE7500013ABC /* BottomViewController~iphone.xib */; };
 		3FB03ED116C4AF5500013ABC /* TopViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FB03ED016C4AF5500013ABC /* TopViewController~iphone.xib */; };
 /* End PBXBuildFile section */
@@ -92,18 +85,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A0264AF1818976B00E4D733 /* Accelerate.framework in Frameworks */,
-				1A0264A918185AB100E4D733 /* CoreVideo.framework in Frameworks */,
-				1A0264A018185A6700E4D733 /* CoreMedia.framework in Frameworks */,
-				1A02649C18185A5000E4D733 /* OpenGLES.framework in Frameworks */,
-				1A02649A18185A4900E4D733 /* AVFoundation.framework in Frameworks */,
-				3F39A6AF16309CC6004EB1BC /* CoreImage.framework in Frameworks */,
-				3F39A6AB1630873D004EB1BC /* QuartzCore.framework in Frameworks */,
-				3F39A6A0163084AF004EB1BC /* CoreGraphics.framework in Frameworks */,
-				3F39A619162F425D004EB1BC /* MapKit.framework in Frameworks */,
+				3F2BEE2418BEB5FC00C888F4 /* QuartzCore.framework in Frameworks */,
+				3F2BEE2318BE99DF00C888F4 /* CoreGraphics.framework in Frameworks */,
+				3F2BEE2218BE99A000C888F4 /* Accelerate.framework in Frameworks */,
+				3F2BEE2118BE995700C888F4 /* UIKit.framework in Frameworks */,
 				3F39A60D162F3EA1004EB1BC /* libJFDepthView.a in Frameworks */,
-				3F1B626B162ED89300447C56 /* UIKit.framework in Frameworks */,
-				3F1B626D162ED89300447C56 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

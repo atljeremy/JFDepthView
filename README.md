@@ -5,6 +5,20 @@ This is an iOS project for presenting views in iOS with a 3D effect to add depth
 
 JFDepthView now supports both iPad and iPhone. (January 29th, 2013)
 
+What's New:
+----------
+###February 26th, 2014
+- Added new animation options. In addition to the normal blur/push back affect you can now choose any of the following animation options.
+    - JFDepthViewAnimationOptionPushBack
+    - JFDepthViewAnimationOptionPushBackAndBlur
+    - JFDepthViewAnimationOptionPerspectiveTransform
+    - JFDepthViewAnimationOptionPerspectiveTransformAndBlur
+  
+- Removed previously deprecated initializer `initWithGestureRecognizer:`
+- Now targets iOS 7+ only
+- Code refactoring and optimization
+- Added subtle bounce to presented view (Trust me, it's beautiful, like a baby unicorn)
+
 What It Looks Like:
 ------------------
 
@@ -61,13 +75,6 @@ How To Use It:
 ### Customizable Properties
 ```objective-c
 /**
- * JFDepthView - isPresenting
- *
- * @return A BOOL that can be used to determine if an instance of JFDepthView is preseting a view.
- */
-@property (nonatomic, assign) BOOL isPresenting;
-
-/**
  * JFDepthView - presentedViewWidth
  *
  * @return A custom float value representing the desired width of the presented view. Default value is 600.
@@ -88,6 +95,13 @@ How To Use It:
  * @return A JFDepthViewBlurAmount enum value representing to desired blur amount for the background view behind the presented view. Default value is JFDepthViewBlurAmountMedium.
  */
 @property (nonatomic, assign) JFDepthViewBlurAmount blurAmount;
+
+/**
+ * JFDepthView - animationOption
+ *
+ * @return A JFDepthViewAnimationOption enum value representing the desired animation for the presentation. Default value is JFDepthViewAnimationOptionPerspectiveTransform.
+ */
+@property (nonatomic, assign) JFDepthViewAnimationOption animationOption;
 
 /**
  * JFDepthView - hideStatusBarDuringPresentation
@@ -161,7 +175,7 @@ Installation:
 
 - In your application's project app target settings, find the "Build Phases" section and open the "Link Binary With Libraries" block
 - Click the "+" button and add the following frameworks
-![frameworks](https://www.evernote.com/shard/s4/sh/1a808b87-4e64-47ea-9fac-a1c8f8651223/f734ee4641673effc71fbf1fb9e6dacc/deep/0/JFDepthVewExample.xcodeproj.png)
+![frameworks](https://www.evernote.com/shard/s4/sh/63b77bb2-2433-4410-8d85-62760153b47a/06a14407a3f3b98757b87fae7ed1ce88/deep/0/Screenshot%202/27/14,%201:23%20PM.jpg)
 
 Current Known Issues As Of: Oct. 23rd, 2013
 -------------------------------------------

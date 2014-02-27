@@ -25,8 +25,6 @@
 
 #import "JFDepthView.h"
 #import <Accelerate/Accelerate.h>
-#import <QuartzCore/QuartzCore.h>
-#import "GPUImageiOSBlurFilter.h"
 #import "UIImage+ImageEffects.h"
 
 #define isiPad() [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad
@@ -39,8 +37,11 @@
 #define kMediumBlurAmount (isiPad()) ? 4.0f : 3.0f
 #define kHardBlurAmount   (isiPad()) ? 6.0f : 5.0f
 
-@interface UIImage (Blur)
-- (UIImage*)imageByBlurringImageWithBlurRadius:(float)radius;
+@interface UIView (JFDepthView)
+- (UIImage*)getScreenShotOfRect:(CGRect)rect;
+- (void)openPerspectiveTransformWithCompletionHandler:(void(^)(BOOL finished))completion;
+- (void)closePerspectiveTransformWithCompletionHandler:(void(^)(BOOL finished))completion;
+- (void)animateToSize:(CGSize)toSize fromSize:(CGSize)fromSize duration:(CGFloat)duration completion:(void(^)(BOOL finished))completion;
 @end
 
 @interface JFDepthView() {
@@ -59,46 +60,18 @@
 @end
 
 @implementation JFDepthView
-@synthesize mainView                = _mainView;
-@synthesize presentedView           = _presentedView;
 @synthesize presentedViewController = _presentedViewController;
-@synthesize presentedViewContainer  = _presentedViewContainer;
-@synthesize isPresenting            = _isPresenting;
-@synthesize topViewWrapper          = _topViewWrapper;
-@synthesize dimView                 = _dimView;
-@synthesize blurredMainView         = _blurredMainView;
-@synthesize recognizer              = _recognizer;
-@synthesize viewImage               = _viewImage;
-@synthesize presentedViewWidth      = _presentedViewWidth;
-@synthesize blurAmount              = _blurAmount;
-@synthesize presentedViewOriginY    = _presentedViewOriginY;
-@synthesize hideStatusBarDuringPresentation = _hideStatusBarDuringPresentation;
 
 - (id)init
 {
     if (self = [super init]) {
         NSLog(@"JFDepthView Initialized!");
         
-        self.recognizer   = nil;
-        self.isPresenting = NO;
-        self.blurAmount   = JFDepthViewBlurAmountMedium;
-        self.hideStatusBarDuringPresentation = NO;
-    }
-    return self;
-}
-
-/**
- * DEPRECATED
- */
-- (JFDepthView*)initWithGestureRecognizer:(UIGestureRecognizer*)gesRec
-{
-    if (self = [super init]) {
-        NSLog(@"JFDepthView Initialized!");
-        
-        self.recognizer   = gesRec;
-        self.isPresenting = NO;
-        self.blurAmount   = JFDepthViewBlurAmountMedium;
-        self.hideStatusBarDuringPresentation = NO;
+        _recognizer   = nil;
+        _isPresenting = NO;
+        _blurAmount   = JFDepthViewBlurAmountMedium;
+        _hideStatusBarDuringPresentation = NO;
+        _animationOption = JFDepthViewAnimationOptionPerspectiveTransform;
     }
     return self;
 }
@@ -257,8 +230,8 @@
     self.presentedView.autoresizingMask    = UIViewAutoresizingFlexibleWidth |
     UIViewAutoresizingFlexibleHeight;
     
-    float presentedViewWidth = [self getPresentedViewWidth];
-    float presentedViewOriginY = [self getPresentedViewOriginY];
+    CGFloat presentedViewWidth = [self getPresentedViewWidth];
+    CGFloat presentedViewOriginY = [self getPresentedViewOriginY];
     
     bottomViewFrame        = self.mainView.bounds;
     CGRect topViewFrame    = self.presentedView.bounds;
@@ -296,7 +269,7 @@
     CGFloat shadowOpacity = (isiPad) ? 1.0 : 0.5;
     self.topViewWrapper = [[UIView alloc] initWithFrame:preTopViewWrapperFrame];
     self.topViewWrapper.autoresizesSubviews = YES;
-    self.topViewWrapper.layer.shadowOffset  = CGSizeMake(0, 0);
+    self.topViewWrapper.layer.shadowOffset  = CGSizeZero;
     self.topViewWrapper.layer.shadowRadius  = shadowRadius;
     self.topViewWrapper.layer.shadowOpacity = shadowOpacity;
     self.topViewWrapper.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.topViewWrapper.bounds].CGPath;
@@ -317,20 +290,13 @@
     UIViewAutoresizingFlexibleHeight      |
     UIViewAutoresizingFlexibleWidth;
     
-    CGFloat padding = (isiPad()) ? 18 : 10;
-    CGSize size = CGSizeMake(CGRectGetWidth(self.mainView.bounds) + padding, CGRectGetHeight(self.mainView.bounds) + padding);
-    UIGraphicsBeginImageContext(size);
-    CGContextRef c = UIGraphicsGetCurrentContext();
-    CGContextTranslateCTM(c, (padding/2), (padding/2));
-    [self.mainView.layer renderInContext:c];
-    self.viewImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+    self.viewImage = [self.mainView getScreenShotOfRect:self.mainView.bounds];
     
     self.blurredMainView = [[UIImageView alloc] initWithFrame:preBottomViewFrame];
     self.blurredMainView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin  |
     UIViewAutoresizingFlexibleRightMargin;
     
-    self.blurredMainView.image = [self getBlurredImage];
+    self.blurredMainView.image = [self.viewImage applyLightEffect];
     
     self.dimView = [[UIView alloc] initWithFrame:bottomViewFrame];
     self.dimView.backgroundColor = [UIColor clearColor];
@@ -358,15 +324,40 @@
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     }
     
-    float duration = (animated) ? 0.5 : 0.0;
+    switch (self.animationOption) {
+        case JFDepthViewAnimationOptionPushBack:
+            [self presentWithPushBackAnimationWithBlur:NO animated:animated];
+            break;
+            
+        case JFDepthViewAnimationOptionPushBackAndBlur:
+            [self presentWithPushBackAnimationWithBlur:YES animated:animated];
+            break;
+            
+        case JFDepthViewAnimationOptionPerspectiveTransformAndBlur:
+            [self presentWithPerspectiveTransformWithBlur:YES animated:animated];
+            break;
+            
+        case JFDepthViewAnimationOptionPerspectiveTransform:
+        default:
+            [self presentWithPerspectiveTransformWithBlur:NO animated:animated];
+            break;
+    }
+}
+
+#pragma mark ----------------------
+#pragma mark Presentation Helpers
+#pragma mark ----------------------
+
+- (void)presentWithPushBackAnimationWithBlur:(BOOL)blur animated:(BOOL)animated
+{
+    if (!blur) self.blurredMainView.image = self.viewImage;
+    NSTimeInterval duration = (animated) ? 0.5 : 0.0;
     [UIView animateWithDuration:duration animations:^{
-        
         self.topViewWrapper.frame = postTopViewWrapperFrame;
         self.blurredMainView.frame = postBottomViewFrame;
         self.presentedViewContainer.alpha = 1.0;
         self.dimView.alpha = 1.0;
         [self hideSubviews];
-        
     } completion:^(BOOL finished){
         NSLog(@"JFDepthView: Present Animation Complete");
         
@@ -380,6 +371,34 @@
     }];
 }
 
+- (void)presentWithPerspectiveTransformWithBlur:(BOOL)blur animated:(BOOL)animated
+{
+    if (!blur) self.blurredMainView.image = self.viewImage;
+    NSTimeInterval duration = (animated) ? 1.0 : 0.0;
+    self.presentedViewContainer.alpha = 1.0f;
+    [self.blurredMainView openPerspectiveTransformWithCompletionHandler:^(BOOL done) {
+        [UIView animateWithDuration:duration delay:0.0f usingSpringWithDamping:0.8f initialSpringVelocity:0.5f options:UIViewAnimationOptionAllowAnimatedContent animations:^{
+            self.topViewWrapper.frame = postTopViewWrapperFrame;
+            self.dimView.alpha = 1.0;
+        } completion:^(BOOL finished) {
+            NSLog(@"JFDepthView: Present Animation Complete");
+            
+            [self hideSubviews];
+            self.view.userInteractionEnabled = YES;
+            self.isPresenting = YES;
+            [self removeAllAnimations];
+            
+            if (self.delegate && [self.delegate respondsToSelector:@selector(didPresentDepthView:)]) {
+                [self.delegate didPresentDepthView:self];
+            }
+        }];
+    }];
+}
+
+#pragma mark ----------------------
+#pragma mark Dismissal Helpers
+#pragma mark ----------------------
+
 - (void)dismissPresentedViewInView:(UIView*)view animated:(BOOL)animated
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(willDismissDepthView:)]) {
@@ -392,32 +411,79 @@
             [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
         }
         
-        float duration = (animated) ? 0.5 : 0.0;
-        [UIView animateWithDuration:duration animations:^{
-            
-            self.topViewWrapper.frame = preTopViewWrapperFrame;
-            self.blurredMainView.frame = preBottomViewFrame;
-            self.presentedViewContainer.alpha = 0.0;
-            self.dimView.alpha = 0.0;
-            [self showSubviews];
-            
-        } completion:^(BOOL finished){
+        switch (self.animationOption) {
+            case JFDepthViewAnimationOptionPushBack:
+                [self dismissWithPullForwardAnimationWithBlur:NO animated:animated];
+                break;
+                
+            case JFDepthViewAnimationOptionPushBackAndBlur:
+                [self dismissWithPullForwardAnimationWithBlur:YES animated:animated];
+                break;
+                
+            case JFDepthViewAnimationOptionPerspectiveTransformAndBlur:
+                [self dismissWithPerspectiveTransformWithBlur:YES animated:animated];
+                break;
+                
+            case JFDepthViewAnimationOptionPerspectiveTransform:
+            default:
+                [self dismissWithPerspectiveTransformWithBlur:NO animated:animated];
+                break;
+        }
+    }
+}
+
+- (void)dismissWithPullForwardAnimationWithBlur:(BOOL)blur animated:(BOOL)animated
+{
+    NSTimeInterval duration = (animated) ? 0.5 : 0.0;
+    [UIView animateWithDuration:duration animations:^{
+        self.topViewWrapper.frame = preTopViewWrapperFrame;
+        self.blurredMainView.frame = preBottomViewFrame;
+        self.presentedViewContainer.alpha = 0.0;
+        self.dimView.alpha = 0.0;
+        [self showSubviews];
+    } completion:^(BOOL finished){
+        NSLog(@"JFDepthView: Dismiss Animation Complete");
+        
+        self.presentedView.frame = originalPresentedViewFrame;
+        [self removeAllViewsFromSuperView];
+        [self removeAllAnimations];
+        [self deallocate];
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(didDismissDepthView:)]) {
+            [self.delegate didDismissDepthView:self];
+        }
+        
+        self.isPresenting = NO;
+        
+    }];
+}
+
+- (void)dismissWithPerspectiveTransformWithBlur:(BOOL)blur animated:(BOOL)animated
+{
+    NSTimeInterval duration = (animated) ? 0.5 : 0.0;
+    [UIView animateWithDuration:duration animations:^{
+        self.topViewWrapper.frame = preTopViewWrapperFrame;
+        self.dimView.alpha = 0.0;
+    } completion:^(BOOL finished){
+        self.presentedView.frame = originalPresentedViewFrame;
+        [self.blurredMainView closePerspectiveTransformWithCompletionHandler:^(BOOL done) {
             NSLog(@"JFDepthView: Dismiss Animation Complete");
-            
-            self.presentedView.frame = originalPresentedViewFrame;
+            self.presentedViewContainer.alpha = 0.0;
+            [self showSubviews];
             [self removeAllViewsFromSuperView];
             [self removeAllAnimations];
             [self deallocate];
-            
             if (self.delegate && [self.delegate respondsToSelector:@selector(didDismissDepthView:)]) {
                 [self.delegate didDismissDepthView:self];
             }
-            
             self.isPresenting = NO;
-            
         }];
-    }
+    }];
 }
+
+#pragma mark ----------------------
+#pragma mark Utils & Additional Helpers
+#pragma mark ----------------------
 
 - (CGFloat)getPresentedViewWidth
 {
@@ -480,17 +546,6 @@
     return amount;
 }
 
-- (UIImage*)getBlurredImage
-{
-// Uncomment to use a faster blurring option but with less visual appeal
-//    NSData *imageData = UIImageJPEGRepresentation(self.viewImage, 1);
-//    UIImage* image = [UIImage imageWithData:imageData];
-//    return [image applyLightEffect];
-
-    // A slower blurring option but looks FAR better than any other option to date
-    return [self.viewImage imageByBlurringImageWithBlurRadius:[self getBlurAmount]];
-}
-
 - (void)hideSubviews {
     for (UIView* subview in self.mainView.subviews) {
         if (subview && ![subview isEqual:self.view]) {
@@ -507,7 +562,9 @@
     }
 }
 
-#pragma mark - Memory Management
+#pragma mark ----------------------
+#pragma mark Memory Management
+#pragma mark ----------------------
 
 - (void)removeAllViewsFromSuperView
 {
@@ -543,15 +600,53 @@
 
 @end
 
-@implementation UIImage (Blur)
+#pragma mark ----------------------
+#pragma mark UIView ScreenCapture Category
+#pragma mark ----------------------
 
-- (UIImage*)imageByBlurringImageWithBlurRadius:(float)radius
+@implementation UIView (JFDepthView)
+
+- (UIImage*)getScreenShotOfRect:(CGRect)rect
 {
-    GPUImageiOSBlurFilter* iOSBlur = [[GPUImageiOSBlurFilter alloc] init];
-    iOSBlur.blurRadiusInPixels = radius;
-    iOSBlur.saturation = 1.3;
-    iOSBlur.downsampling = (isiPad()) ? 3.0 : 2.0;
-    return [iOSBlur imageByFilteringImage:self];
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef c = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(c, CGRectGetMinX(rect), CGRectGetMinY(rect));
+    [self.layer renderInContext:c];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
+- (void)animateToSize:(CGSize)toSize fromSize:(CGSize)fromSize duration:(CGFloat)duration completion:(void(^)(BOOL finished))completion
+{
+    self.transform = CGAffineTransformMakeScale(fromSize.width, fromSize.height);
+    [UIView animateWithDuration:1.0f delay:0.0f usingSpringWithDamping:0.7f initialSpringVelocity:0.3f options:UIViewAnimationOptionAllowAnimatedContent animations:^{
+        self.transform = CGAffineTransformMakeScale(toSize.width, toSize.height);
+    } completion:completion];
+}
+
+- (void)openPerspectiveTransformWithCompletionHandler:(void(^)(BOOL finished))completion {
+    CGRect f = self.frame;
+    f.origin.y = -(CGRectGetHeight(f) / 2);
+    self.frame = f;
+    self.layer.anchorPoint = CGPointMake(0.5, 0);
+    CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
+    rotationAndPerspectiveTransform.m34 = 1.0 / -1000.0;
+    rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, -.1, 1.0f, 0.0f, 0.0f);
+    [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:0.7f initialSpringVelocity:0.5f options:UIViewAnimationOptionAllowAnimatedContent animations:^{
+        self.layer.transform = rotationAndPerspectiveTransform;
+    } completion:completion];
+}
+
+- (void)closePerspectiveTransformWithCompletionHandler:(void(^)(BOOL finished))completion {
+    self.layer.anchorPoint = CGPointMake(0.5, 0);
+    CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
+    rotationAndPerspectiveTransform.m34 = 0;
+    rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, 0, 1.0f, 0.0f, 0.0f);
+    [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:0.7f initialSpringVelocity:0.5f options:UIViewAnimationOptionAllowAnimatedContent animations:^{
+        self.layer.transform = rotationAndPerspectiveTransform;
+    } completion:completion];
 }
 
 @end

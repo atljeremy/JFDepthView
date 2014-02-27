@@ -39,6 +39,7 @@
 //    self.depthView.presentedViewOriginY = 200;
 //    self.depthView.blurAmount = JFDepthViewBlurAmountLight;
     self.depthView.recognizer = tapRec;
+    self.depthView.animationOption = JFDepthViewAnimationOptionPerspectiveTransform;
     
     self.topViewController.depthViewReference = self.depthView;
     self.topViewController.presentedInView = self.view;

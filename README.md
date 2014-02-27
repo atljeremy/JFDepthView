@@ -1,9 +1,7 @@
 JFDepthView
 ===========
 
-This is an iOS project for presenting views in iOS with a 3D effect to add depth. JFDepthView is only available in ARC and targets iOS 5.0+.
-
-JFDepthView now supports both iPad and iPhone. (January 29th, 2013)
+This is an iOS project for presenting views in iOS with a 3D effect to add depth. JFDepthView is only available in ARC and targets iOS 7.0+.
 
 What's New:
 ----------
@@ -18,6 +16,9 @@ What's New:
 - Now targets iOS 7+ only
 - Code refactoring and optimization
 - Added subtle bounce to presented view (Trust me, it's beautiful, like a baby unicorn)
+
+###January 29th, 2013
+- JFDepthView now supports both iPad and iPhone.
 
 What It Looks Like:
 ------------------

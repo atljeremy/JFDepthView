@@ -52,6 +52,7 @@ How To Use It:
     // self.depthView.presentedViewWidth = 700;
     // self.depthView.presentedViewOriginY = 200;
     // self.depthView.blurAmount = JFDepthViewBlurAmountHard;
+    // self.animationOption = JFDepthViewAnimationOptionPushBackAndBlur;
 	self.depthView.recognizer = tapRec;
 }
 

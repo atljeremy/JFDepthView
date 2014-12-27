@@ -25,9 +25,13 @@ What's New:
 What It Looks Like:
 ------------------
 
-![iPad](https://dl.dropboxusercontent.com/u/55388810/ipad-example.gif)
+### iPad
 
-foo
+![iPad](https://dl.dropboxusercontent.com/u/55388810/depthviewpad.gif)
+
+### iPhone
+
+![iPhone](https://dl.dropboxusercontent.com/u/55388810/depthviewphone.gif)
 
 ### Video (Shows all presentation animations for both iPhone and iPad)
 

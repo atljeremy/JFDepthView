@@ -29,7 +29,7 @@ What It Looks Like:
 
 ![iPad](https://dl.dropboxusercontent.com/u/55388810/ipad-example.gif)
 
-![Example](https://dl.dropboxusercontent.com/u/55388810/example.gif)
+![Example](https://dl.dropboxusercontent.com/u/55388810/ipad-example.gif)
 
 ### iPhone
 

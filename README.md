@@ -25,14 +25,14 @@ What's New:
 What It Looks Like:
 ------------------
 
-###Video
-See it in action here: [http://www.youtube.com/watch?v=X5lmn5y-FUw](http://www.youtube.com/watch?v=X5lmn5y-FUw)
-
 ### iPad
-![iPad](https://www.evernote.com/shard/s4/sh/f6867af8-97da-446a-84ca-78cffa475bc9/10937965ff3df0b205c68efc1936214d/deep/0/depthview-ipad.png)
+![iPad](https://dl.dropboxusercontent.com/u/55388810/ipad-example.gif)
 
 ### iPhone
-![iPhone](https://www.evernote.com/shard/s4/sh/d6aa555b-df44-4acc-9481-883b52bf907d/2f0fed09193a6cba4ed73690464d82f2/deep/0/depthview-iphone.png)
+![iPhone](https://dl.dropboxusercontent.com/u/55388810/iphone-example.gif)
+
+###Video (Shows all presentation animations for both iPhone and iPad)
+See it in action here: [http://www.youtube.com/watch?v=X5lmn5y-FUw](http://www.youtube.com/watch?v=X5lmn5y-FUw)
 
 How To Use It:
 -------------

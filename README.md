@@ -25,17 +25,9 @@ What's New:
 What It Looks Like:
 ------------------
 
-### iPad
-
 ![iPad](https://dl.dropboxusercontent.com/u/55388810/ipad-example.gif)
 
-![Example](https://dl.dropboxusercontent.com/u/55388810/ipad-example.gif)
-
-### iPhone
-
 ![iPhone](https://dl.dropboxusercontent.com/u/55388810/iphone-example.gif)
-
-![Example](https://dl.dropboxusercontent.com/u/55388810/example.gif)
 
 ### Video (Shows all presentation animations for both iPhone and iPad)
 

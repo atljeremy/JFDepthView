@@ -26,12 +26,15 @@ What It Looks Like:
 ------------------
 
 ### iPad
+
 ![iPad](https://dl.dropboxusercontent.com/u/55388810/ipad-example.gif)
 
 ### iPhone
+
 ![iPhone](https://dl.dropboxusercontent.com/u/55388810/iphone-example.gif)
 
-###Video (Shows all presentation animations for both iPhone and iPad)
+### Video (Shows all presentation animations for both iPhone and iPad)
+
 See it in action here: [http://www.youtube.com/watch?v=X5lmn5y-FUw](http://www.youtube.com/watch?v=X5lmn5y-FUw)
 
 How To Use It:

@@ -5,7 +5,7 @@ This is an iOS project for presenting views in iOS with a 3D effect to add depth
 
 What's New:
 ----------
-###February 26th, 2014
+### February 26th, 2014
 - Added new animation options. In addition to the normal blur/push back affect you can now choose any of the following animation options.
     - JFDepthViewAnimationOptionPushBack
     - JFDepthViewAnimationOptionPushBackAndBlur
@@ -19,7 +19,7 @@ What's New:
 - Code refactoring and optimization
 - Added subtle bounce to presented view (Trust me, it's beautiful, like a baby unicorn)
 
-###January 29th, 2013
+### January 29th, 2013
 - JFDepthView now supports both iPad and iPhone.
 
 What It Looks Like:

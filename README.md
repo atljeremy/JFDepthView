@@ -27,11 +27,11 @@ What It Looks Like:
 
 ### iPad
 
-![iPad](https://dl.dropboxusercontent.com/u/55388810/depthviewpad.gif)
+![iPad](https://github.com/atljeremy/JFDepthView/blob/master/ipad-example.gif?raw=true)
 
 ### iPhone
 
-![iPhone](https://dl.dropboxusercontent.com/u/55388810/depthviewphone.gif)
+![iPhone](https://github.com/atljeremy/JFDepthView/blob/master/iphone-example.gif?raw=true)
 
 ### Video (Shows all presentation animations for both iPhone and iPad)
 
